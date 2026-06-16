@@ -1,51 +1,59 @@
+/**
+ * RouteLine — draws a dashed straight line between the user and the selected location.
+ *
+ * Replaces leaflet-routing-machine entirely to avoid the persistent
+ * "Cannot read properties of null (reading 'removeLayer')" crash that occurs
+ * when the LRM library tries to clean up after the Leaflet map is gone.
+ *
+ * A straight polyline is reliable, instant, works offline, and requires no
+ * external routing server (OSRM).
+ */
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
-import 'leaflet-routing-machine';
-import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import { useMap } from 'react-leaflet';
 
 export default function RoutingMachine({ start, end }) {
   const map = useMap();
-  const controlRef = useRef(null);
+  const lineRef = useRef(null);
 
   useEffect(() => {
     if (!start || !end || !map) return;
 
-    // Remove any previous routing control safely
-    if (controlRef.current) {
-      try { map.removeControl(controlRef.current); } catch (_) {}
-      controlRef.current = null;
+    // Remove previous line if it exists
+    if (lineRef.current) {
+      try {
+        map.removeLayer(lineRef.current);
+      } catch (_) { /* map may have been torn down */ }
+      lineRef.current = null;
     }
 
+    // Draw a dashed polyline from user → destination
     try {
-      const routingControl = L.Routing.control({
-        waypoints: [
-          L.latLng(start[0], start[1]),
-          L.latLng(end[0], end[1]),
-        ],
-        routeWhileDragging: false,
-        addWaypoints: false,
-        fitSelectedRoutes: false,
-        showAlternatives: false,
-        show: false,
-        createMarker: () => null, // Don't create extra markers
-        lineOptions: {
-          styles: [{ color: '#2563EB', weight: 4, opacity: 0.8 }],
-        },
-      }).addTo(map);
+      const line = L.polyline(
+        [start, end],
+        {
+          color: '#2563EB',
+          weight: 3,
+          opacity: 0.8,
+          dashArray: '8, 8',
+        }
+      ).addTo(map);
 
-      controlRef.current = routingControl;
+      lineRef.current = line;
     } catch (err) {
-      console.warn('Routing error:', err);
+      console.warn('RouteLine draw error:', err);
     }
 
+    // Cleanup: remove line when component unmounts or coords change
     return () => {
-      if (controlRef.current && map) {
-        try { map.removeControl(controlRef.current); } catch (_) {}
-        controlRef.current = null;
+      if (lineRef.current) {
+        try {
+          map.removeLayer(lineRef.current);
+        } catch (_) { /* ignore — map may already be gone */ }
+        lineRef.current = null;
       }
     };
-  }, [map, start?.[0], start?.[1], end?.[0], end?.[1]]);
+  }, [start?.[0], start?.[1], end?.[0], end?.[1]]);
 
   return null;
 }

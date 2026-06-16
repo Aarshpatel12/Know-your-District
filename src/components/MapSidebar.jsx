@@ -41,10 +41,16 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
         />
         <button
           onClick={onLocateMe}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded flex items-center justify-center gap-2 transition-colors"
+          className={`w-full font-medium py-2.5 px-4 rounded flex items-center justify-center gap-2 transition-colors text-sm ${
+            userLocation
+              ? 'bg-green-600 hover:bg-green-700 text-white'
+              : 'bg-blue-600 hover:bg-blue-700 text-white'
+          }`}
         >
           <Navigation size={18} />
-          {userLocation ? 'Location Found (Sorted by Nearest)' : 'Find Nearest to Me'}
+          {userLocation
+            ? '✓ Sorted by Nearest — Tap any result to view on map'
+            : 'Find Nearest to Me'}
         </button>
       </div>
 

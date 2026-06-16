@@ -54,7 +54,7 @@ export default function DirectoryPage() {
         .sort((a, b) => a.distance - b.distance);
 
       setData(sorted);
-      setMobileTab('map');
+      // Stay on List tab so user can see sorted results
     });
   };
 
