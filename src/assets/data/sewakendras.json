@@ -1,0 +1,379 @@
+[
+  {
+    "id": "sk_3",
+    "name": "Sewa Kendra Dugri",
+    "tehsil": "Ludhiana West",
+    "assembly": "Atam nagar",
+    "type": "Type-II",
+    "lat": 30.991722445801177,
+    "lng": 75.99627520664677
+  },
+  {
+    "id": "sk_31",
+    "name": "MUNICIPAL CORPORATION OFFICE SUB ZONE D-2 NEAR SANJH KENDER(ATAM PARK)",
+    "tehsil": "Ludhiana west",
+    "assembly": "Atam nagar",
+    "type": "Type-II",
+    "lat": 30.853209666665148,
+    "lng": 75.96321605247088
+  },
+  {
+    "id": "sk_32",
+    "name": "PSPCL JANTA NAGAR, LUDHIANA ",
+    "tehsil": "Ludhiana Central",
+    "assembly": "Atam nagar",
+    "type": "Type-II",
+    "lat": 30.975754030617484,
+    "lng": 75.84216790974726
+  },
+  {
+    "id": "sk_1",
+    "name": "Sarabha",
+    "tehsil": "Ludhiana West",
+    "assembly": "Dakha",
+    "type": "Type-III",
+    "lat": 30.84182991499948,
+    "lng": 76.00037853344561
+  },
+  {
+    "id": "sk_9",
+    "name": "Sidhwan bet",
+    "tehsil": "Jagraon",
+    "assembly": "Dakha",
+    "type": "Type-III",
+    "lat": 30.806547890572315,
+    "lng": 75.87195696160784
+  },
+  {
+    "id": "sk_14",
+    "name": "SUWIDHA CENTER AT MULLANPUR DAKHA AT STADIUM ON NH-95, OPP. GOVT. SCHOOL,  MULLANPUR DAKHA",
+    "tehsil": "Sub tehsil dakha,\r\nTehsil Ludhiana west",
+    "assembly": "Dakha",
+    "type": "Type-II",
+    "lat": 30.88161731335339,
+    "lng": 75.93637249190198
+  },
+  {
+    "id": "sk_18",
+    "name": "Rattan (Jodhan)",
+    "tehsil": "Ludhiana West",
+    "assembly": "dakha",
+    "type": "Type-III",
+    "lat": 30.826199982731787,
+    "lng": 75.78215525859929
+  },
+  {
+    "id": "sk_40",
+    "name": "Hambran",
+    "tehsil": "Ludhiana West",
+    "assembly": "Dakha",
+    "type": "Type-III",
+    "lat": 30.78779877678067,
+    "lng": 75.76071208163737
+  },
+  {
+    "id": "sk_37",
+    "name": "Dehlon",
+    "tehsil": "Ludhiana Central",
+    "assembly": "Gill",
+    "type": "Type-III",
+    "lat": 30.824264540982647,
+    "lng": 75.84901134549999
+  },
+  {
+    "id": "sk_8",
+    "name": "Manuke",
+    "tehsil": "Jagraon",
+    "assembly": "Jagraon",
+    "type": "Type-III",
+    "lat": 30.88788311092356,
+    "lng": 75.95215803351078
+  },
+  {
+    "id": "sk_20",
+    "name": "MC office Jagron",
+    "tehsil": "Jagraon",
+    "assembly": "jagraon",
+    "type": "Type-II",
+    "lat": 30.771757211773913,
+    "lng": 75.73852398348691
+  },
+  {
+    "id": "sk_34",
+    "name": "Tehsil Complex jagraon",
+    "tehsil": "jagraon",
+    "assembly": "Jagraon",
+    "type": "Type-II",
+    "lat": 30.99627245234243,
+    "lng": 75.86444491502488
+  },
+  {
+    "id": "sk_2",
+    "name": "Ishru",
+    "tehsil": "Khanna",
+    "assembly": "Khanna",
+    "type": "Type-III",
+    "lat": 30.768462945594198,
+    "lng": 75.9858247825073
+  },
+  {
+    "id": "sk_21",
+    "name": "MC office Khanna",
+    "tehsil": "Khanna",
+    "assembly": "Khanna",
+    "type": "Type-II",
+    "lat": 30.766243277460823,
+    "lng": 75.84166545981407
+  },
+  {
+    "id": "sk_33",
+    "name": "Jal Ghar Back Side Tehsil Office Khanna",
+    "tehsil": "khanna",
+    "assembly": "Khanna",
+    "type": "Type-II",
+    "lat": 30.9111453291724,
+    "lng": 75.74826183231407
+  },
+  {
+    "id": "sk_42",
+    "name": "beja ",
+    "tehsil": "Khanna",
+    "assembly": "Khanna",
+    "lat": 30.908571274251223,
+    "lng": 75.78766180288628
+  },
+  {
+    "id": "sk_5",
+    "name": "MCL SUBZONAL OFFICE,DHOLEWAL CHOWK OPP. SANDHU AUTO MOBILE,ZONEC-I",
+    "tehsil": "Ludhiana east",
+    "assembly": "Ludhiana Central",
+    "type": "Type-II",
+    "lat": 30.91976628364845,
+    "lng": 75.86535937011328
+  },
+  {
+    "id": "sk_10",
+    "name": "MUNCIPAL CORPORATION OFFICE ZONE-B,BACKSIDE SHINGAR CINEMA",
+    "tehsil": "Ludhiana east",
+    "assembly": "Ludhiana Central",
+    "type": "Type-II",
+    "lat": 31.031062996240852,
+    "lng": 75.83415686410785
+  },
+  {
+    "id": "sk_15",
+    "name": "ABANDONED LABORATORY BUILDING,OLD CIVIL HOSPITAL NEAR RED CROSS OFFICE",
+    "tehsil": "Ludhiana East",
+    "assembly": "Ludhiana central",
+    "type": "Type-II",
+    "lat": 30.865549203637816,
+    "lng": 75.94268943898881
+  },
+  {
+    "id": "sk_24",
+    "name": "MUNICIPAL CORPORATION OFFICE SUB ZONE A-1, DARESI   ROAD",
+    "tehsil": "Ludhiana East",
+    "assembly": "Ludhiana Central",
+    "type": "Type-II",
+    "lat": 30.884647639408634,
+    "lng": 75.9461699689436
+  },
+  {
+    "id": "sk_16",
+    "name": "ADJOINING PARK NEAR POLICE CHOWKY ON TAJPUR ROAD",
+    "tehsil": "Ludhiana east",
+    "assembly": "Ludhiana East",
+    "type": "Type-II",
+    "lat": 30.81847856740249,
+    "lng": 75.77873512275599
+  },
+  {
+    "id": "sk_35",
+    "name": "PSPCL SUNDER NAGAR DIVISION OFFICE,KAKOWAL ROAD",
+    "tehsil": "Ludhiana east",
+    "assembly": "Ludhiana East",
+    "type": "Type-II",
+    "lat": 30.868964102576907,
+    "lng": 75.83135260301111
+  },
+  {
+    "id": "sk_17",
+    "name": "OPPOSITE POLICE STATION HAIBOWAL",
+    "tehsil": "Ludhiana West",
+    "assembly": "Ludhiana North",
+    "type": "Type-II",
+    "lat": 30.98001379365291,
+    "lng": 75.74230421225289
+  },
+  {
+    "id": "sk_29",
+    "name": "LAND VACANT ON NATIONAL HIGHWAY AND ADJOINING NEW SABZI MANDI,KARABARA CHOWK,NATIONAL HIGHWAY",
+    "tehsil": "Ludhiana East",
+    "assembly": "Ludhiana North",
+    "type": "Type-II",
+    "lat": 30.817594239470836,
+    "lng": 75.73011680867874
+  },
+  {
+    "id": "sk_4",
+    "name": "MUNICIPAL CORPORATION OFFICE SUB ZONE B-4 NEAR SHERPUR CHOWK",
+    "tehsil": "Ludhiana east",
+    "assembly": "Ludhiana South",
+    "type": "Type-II",
+    "lat": 30.943726822923992,
+    "lng": 75.94579803756965
+  },
+  {
+    "id": "sk_11",
+    "name": "FOR VILLAGE DHABA( AT GIASPURA SIDE)",
+    "tehsil": "Ludhiana Central",
+    "assembly": "Ludhiana South",
+    "type": "Type-II",
+    "lat": 30.843596690490614,
+    "lng": 75.81219564645224
+  },
+  {
+    "id": "sk_19",
+    "name": "PSPCL GIASPURA DIVISON OFFICE,MAIN ROAD GIASPURA",
+    "tehsil": "Ludhiana Central",
+    "assembly": "Ludhiana South",
+    "type": "Type-II",
+    "lat": 31.00553411858167,
+    "lng": 75.96665109973138
+  },
+  {
+    "id": "sk_6",
+    "name": "ADJOINING MCL OFFICE ZONE-D IN LEISURE VALLEY",
+    "tehsil": "Ludhiana west",
+    "assembly": "Ludhiana West",
+    "type": "Type-II",
+    "lat": 31.04800565241332,
+    "lng": 75.92115862543827
+  },
+  {
+    "id": "sk_13",
+    "name": "VACANT SPACE NEAR RAKH BAGH AT SQUASH COURT ROAD ",
+    "tehsil": "Ludhiana West",
+    "assembly": "Ludhiana West",
+    "type": "Type-II",
+    "lat": 30.81182711716748,
+    "lng": 75.83046335167322
+  },
+  {
+    "id": "sk_41",
+    "name": "Type-I, Dc Office, Ludhiana",
+    "tehsil": "Ludhiana West",
+    "assembly": "Ludhiana West",
+    "type": "Type-I",
+    "lat": 30.891773956878293,
+    "lng": 75.88286783625509
+  },
+  {
+    "id": "sk_22",
+    "name": "Doraha",
+    "tehsil": "Payal",
+    "assembly": "payal",
+    "type": "Type-II",
+    "lat": 30.75162348583834,
+    "lng": 75.79272667148685
+  },
+  {
+    "id": "sk_25",
+    "name": "Maloudh",
+    "tehsil": "Sub tehsil maloudh ,tehsil Payal",
+    "assembly": "Payal",
+    "type": "Type-II",
+    "lat": 31.006809911641252,
+    "lng": 75.87430513756532
+  },
+  {
+    "id": "sk_28",
+    "name": "Tehsil Complex Payal",
+    "tehsil": "Payal",
+    "assembly": "Payal",
+    "type": "Type-II",
+    "lat": 30.987170442954064,
+    "lng": 75.83130642460343
+  },
+  {
+    "id": "sk_12",
+    "name": "Sudhar",
+    "tehsil": "Raikot",
+    "assembly": "Raikot",
+    "type": "Type-III",
+    "lat": 30.84309528921316,
+    "lng": 75.74033774233841
+  },
+  {
+    "id": "sk_27",
+    "name": "Pakhowal",
+    "tehsil": "Raikot",
+    "assembly": "Raikot",
+    "type": "Type-III",
+    "lat": 30.86018833234487,
+    "lng": 75.8118308742926
+  },
+  {
+    "id": "sk_36",
+    "name": "Tehsil Complex Raikot",
+    "tehsil": "raikot",
+    "assembly": "Raikot",
+    "type": "Type-II",
+    "lat": 30.814139028381277,
+    "lng": 75.77865131287277
+  },
+  {
+    "id": "sk_23",
+    "name": "GOVT. HIGH SCHOOL MUNDIAN,CHANDIGARH ROAD",
+    "tehsil": "Ludhiana East",
+    "assembly": "Sahnewal",
+    "type": "Type-II",
+    "lat": 30.76991876810488,
+    "lng": 75.82868838628211
+  },
+  {
+    "id": "sk_26",
+    "name": "Sahnewal",
+    "tehsil": "sub tehsil sahnewal,tehsil Ludhiana east",
+    "assembly": "sahnewal",
+    "type": "Type-II",
+    "lat": 30.852650826779566,
+    "lng": 75.85073571522824
+  },
+  {
+    "id": "sk_38",
+    "name": "KoomKalan",
+    "tehsil": "Ludhiana East",
+    "assembly": "Sahnewal",
+    "type": "Type-III",
+    "lat": 30.856388443154653,
+    "lng": 75.75721701968006
+  },
+  {
+    "id": "sk_7",
+    "name": "Sewa Kendra M.C Samrala",
+    "tehsil": "Samarala",
+    "assembly": "Samrala",
+    "type": "Type-II",
+    "lat": 30.975933617077324,
+    "lng": 75.80500167258775
+  },
+  {
+    "id": "sk_30",
+    "name": "Tehsil Complex Machiwara",
+    "tehsil": "Sub tehsil machiwara ,tehsil Samrala",
+    "assembly": "Samrala",
+    "type": "Type-II",
+    "lat": 30.801970618028616,
+    "lng": 75.95118209547455
+  },
+  {
+    "id": "sk_39",
+    "name": "Tehsil Complex Samrala",
+    "tehsil": "samrala",
+    "assembly": "Samrala",
+    "type": "Type-II",
+    "lat": 31.034124364956558,
+    "lng": 75.99863130960979
+  }
+]

@@ -1,0 +1,353 @@
+[
+  {
+    "id": "kanungo_NAME OF KANUNGO",
+    "name": "TEHSIL/SUB TEHSIL",
+    "tehsil": "MOB",
+    "mobile": "NAME OF ALL KANUNGO CIRCLE  HOLDING CHARGE",
+    "type": "Kanungo",
+    "lat": 31.035276082431082,
+    "lng": 75.82050989118302
+  },
+  {
+    "id": "kanungo_Jasvir Singh",
+    "name": "Ludhiana West",
+    "tehsil": 7529033390,
+    "mobile": "Ayali Khurd, Bagga Khurd",
+    "type": "Kanungo",
+    "lat": 31.030843073630916,
+    "lng": 75.71957502285244
+  },
+  {
+    "id": "kanungo_Sarbpreet Singh",
+    "name": "Ludhiana West",
+    "tehsil": 9872467888,
+    "mobile": "Sunet",
+    "type": "Kanungo",
+    "lat": 30.970684483077957,
+    "lng": 75.70813608725929
+  },
+  {
+    "id": "kanungo_Ramandeep Singh",
+    "name": "Ludhiana West",
+    "tehsil": 7973082193,
+    "mobile": "Phullanwal",
+    "type": "Kanungo",
+    "lat": 31.011159768967943,
+    "lng": 75.77739455786087
+  },
+  {
+    "id": "kanungo_Ramandeep Singh",
+    "name": "Ludhiana South",
+    "tehsil": 7973082193,
+    "mobile": "Phullanwal",
+    "type": "Kanungo",
+    "lat": 30.802647178702113,
+    "lng": 75.97327878782225
+  },
+  {
+    "id": "kanungo_Varun Chabbra",
+    "name": "Ludhiana South",
+    "tehsil": 9465702222,
+    "mobile": "Jodhan, Gujjarwal",
+    "type": "Kanungo",
+    "lat": 30.765002267237396,
+    "lng": 75.88053341893546
+  },
+  {
+    "id": "kanungo_Daljit Singh",
+    "name": "Ludhiana South",
+    "tehsil": 8968860009,
+    "mobile": "Gill",
+    "type": "Kanungo",
+    "lat": 30.96358788741478,
+    "lng": 75.77880876909653
+  },
+  {
+    "id": "kanungo_Sukhjitpal Singh",
+    "name": "Mullanpur",
+    "tehsil": 8427033337,
+    "mobile": "Mohi",
+    "type": "Kanungo",
+    "lat": 30.7715683803946,
+    "lng": 75.97694471785796
+  },
+  {
+    "id": "kanungo_Jaspreet Singh",
+    "name": "Mullanpur",
+    "tehsil": 9779211919,
+    "mobile": "Dakha",
+    "type": "Kanungo",
+    "lat": 30.951910593134972,
+    "lng": 75.76395871461689
+  },
+  {
+    "id": "kanungo_Karanjaspal Singh",
+    "name": "Ludhiana East",
+    "tehsil": "95018-08297",
+    "mobile": "Tarf Sedha",
+    "type": "Kanungo",
+    "lat": 31.0015278101483,
+    "lng": 75.93919009881209
+  },
+  {
+    "id": "kanungo_Gurpreet Singh",
+    "name": "Ludhiana East",
+    "tehsil": "97794-99987",
+    "mobile": "Mangat",
+    "type": "Kanungo",
+    "lat": 30.775798632367046,
+    "lng": 75.7512216003332
+  },
+  {
+    "id": "kanungo_Rupinder Singh",
+    "name": "Ludhiana East",
+    "tehsil": "98141-54222",
+    "mobile": "Ludhiana",
+    "type": "Kanungo",
+    "lat": 30.87463239580398,
+    "lng": 75.71171971939323
+  },
+  {
+    "id": "kanungo_Varun Sharma",
+    "name": "Sahnewal",
+    "tehsil": 9872760059,
+    "mobile": "Sahnewal ",
+    "type": "Kanungo",
+    "lat": 30.916676542723735,
+    "lng": 75.83239936900736
+  },
+  {
+    "id": "kanungo_Gurdev Singh",
+    "name": "Sahnewal",
+    "tehsil": 9814964449,
+    "mobile": "Sahnewal",
+    "type": "Kanungo",
+    "lat": 31.019307984340475,
+    "lng": 75.76329506972169
+  },
+  {
+    "id": "kanungo_Gurdev Singh",
+    "name": "Sahnewal",
+    "tehsil": 9814964449,
+    "mobile": "Bholapur",
+    "type": "Kanungo",
+    "lat": 30.899995162373777,
+    "lng": 75.98617087125511
+  },
+  {
+    "id": "kanungo_Kuldeep Singh",
+    "name": "Dehlon",
+    "tehsil": 9417088400,
+    "mobile": "Dehlon",
+    "type": "Kanungo",
+    "lat": 30.991621878141707,
+    "lng": 76.00011782565446
+  },
+  {
+    "id": "kanungo_Baljinder Singh",
+    "name": "Dehlon",
+    "tehsil": 7973534209,
+    "mobile": "Ghawaddi",
+    "type": "Kanungo",
+    "lat": 30.988094795543244,
+    "lng": 75.8839898266916
+  },
+  {
+    "id": "kanungo_Gurdev Singh",
+    "name": "Koomkalan",
+    "tehsil": 9814964449,
+    "mobile": "Koom Kalan",
+    "type": "Kanungo",
+    "lat": 30.953664993013234,
+    "lng": 75.75720729325846
+  },
+  {
+    "id": "kanungo_Rajinderpal",
+    "name": "Koomkalan",
+    "tehsil": 7837820698,
+    "mobile": "Mattewara",
+    "type": "Kanungo",
+    "lat": 30.77396116062556,
+    "lng": 75.71686866235999
+  },
+  {
+    "id": "kanungo_ਸ਼੍ਰੀ ਗੁਰਦੇਵ ਸਿੰਘ ਕਾਨੂੰਗੋ",
+    "name": "ਜਗਰਾਉਂ",
+    "tehsil": "98558-24790",
+    "mobile": "ਜਗਰਾਓਂ,ਦਫ਼ਤਰ ਕਾਨੂੰਗੋ ਜਗਰਾਓਂ, ਮਲਕ",
+    "type": "Kanungo",
+    "lat": 30.756055288960603,
+    "lng": 75.76173897723076
+  },
+  {
+    "id": "kanungo_ਸ਼੍ਰੀ ਸੁਖਦੇਵ ਸਿੰਘ ਕਾਨੂੰਗੋ",
+    "name": "ਜਗਰਾਉਂ",
+    "tehsil": "78142-88548",
+    "mobile": "ਸਵੱਦੀ ਖਾਸ,ਪੱਬੀਆਂ\n         \n",
+    "type": "Kanungo",
+    "lat": 30.921254387812322,
+    "lng": 75.95047931319807
+  },
+  {
+    "id": "kanungo_ਸ਼੍ਰੀ ਮਤੀ ਰਮਨੀਤ ਕੌਰ ਕਾਨੂੰਗੋ",
+    "name": "ਜਗਰਾਉਂ",
+    "tehsil": "84375-61556",
+    "mobile": "ਅਖਾੜ੍ਹਾ",
+    "type": "Kanungo",
+    "lat": 30.896128326831825,
+    "lng": 75.76928121914975
+  },
+  {
+    "id": "kanungo_ਸ਼੍ਰੀ ਜਗਤਾਰ ਸਿੰਘ ਕਾਨੂੰਗੋ",
+    "name": "ਜਗਰਾਉਂ",
+    "tehsil": "79867-56166",
+    "mobile": "ਮਾਣੂੰਕਾ,ਕਾਉਂਕਾ",
+    "type": "Kanungo",
+    "lat": 30.83570119342053,
+    "lng": 75.96195016298893
+  },
+  {
+    "id": "kanungo_ਸ਼੍ਰੀ ਅਭਿਸ਼ੇਕ ਚੋਪੜਾ ਕਾਨੂੰਗੋ",
+    "name": "ਸਿੱਧਵਾਂ ਬੇਟ",
+    "tehsil": "99157-36363",
+    "mobile": "ਸਿੱਧਵਾਂ ਬੇਟ,ਭੂੰਦੜ੍ਹੀ",
+    "type": "Kanungo",
+    "lat": 30.78311010244085,
+    "lng": 75.82030227524832
+  },
+  {
+    "id": "kanungo_ਸ਼੍ਰੀ ਅਵਤਾਰ ਸਿੰਘ ਕਾਨੂੰਗੋ",
+    "name": "ਸਿੱਧਵਾਂ ਬੇਟ",
+    "tehsil": "98555-61009",
+    "mobile": "ਲੋਧੀਵਾਲ",
+    "type": "Kanungo",
+    "lat": 30.982799462266467,
+    "lng": 75.79062800456333
+  },
+  {
+    "id": "kanungo_LOVEPREET KAUR",
+    "name": "Samrala",
+    "tehsil": "78148-20600",
+    "mobile": "UTALA,KOTALA",
+    "type": "Kanungo",
+    "lat": 30.91394047970264,
+    "lng": 75.86783386697435
+  },
+  {
+    "id": "kanungo_BALRAJ SINGH",
+    "name": "Samrala",
+    "tehsil": "98032-52113",
+    "mobile": "MADPUR",
+    "type": "Kanungo",
+    "lat": 30.76953102615418,
+    "lng": 75.75884217511961
+  },
+  {
+    "id": "kanungo_SANDEEP KUMAR",
+    "name": "Samrala",
+    "tehsil": "94635-66949",
+    "mobile": "SAMRALA",
+    "type": "Kanungo",
+    "lat": 30.79493601436221,
+    "lng": 75.75690002221627
+  },
+  {
+    "id": "kanungo_SANDEEP KUMAR",
+    "name": "Machhiwara",
+    "tehsil": "94635-66949",
+    "mobile": "MACHIWARA, HEDO BET",
+    "type": "Kanungo",
+    "lat": 30.78334494021858,
+    "lng": 75.72360336886321
+  },
+  {
+    "id": "kanungo_Nittu bala",
+    "name": "Payal",
+    "tehsil": 9501148155,
+    "mobile": "jarg",
+    "type": "Kanungo",
+    "lat": 30.76246744932846,
+    "lng": 76.00200674982615
+  },
+  {
+    "id": "kanungo_Kuldeep singh",
+    "name": "Payal",
+    "tehsil": 8968534153,
+    "mobile": "Doraha",
+    "type": "Kanungo",
+    "lat": 30.95603082372418,
+    "lng": 75.89939315642653
+  },
+  {
+    "id": "kanungo_Gurmail singh",
+    "name": "Payal",
+    "tehsil": 9914924993,
+    "mobile": "payal",
+    "type": "Kanungo",
+    "lat": 30.935302326341855,
+    "lng": 75.85396738261545
+  },
+  {
+    "id": "kanungo_Swarnjit singh",
+    "name": "Maloud",
+    "tehsil": 9465983000,
+    "mobile": "siahar, maloud",
+    "type": "Kanungo",
+    "lat": 30.94110200121178,
+    "lng": 75.87697189656686
+  },
+  {
+    "id": "kanungo_Gurbakhsis singh",
+    "name": "Raikot",
+    "tehsil": 9464400302,
+    "mobile": "Sudhar",
+    "type": "Kanungo",
+    "lat": 30.937441731906475,
+    "lng": 75.71574938879263
+  },
+  {
+    "id": "kanungo_Rupinder singh",
+    "name": "Raikot",
+    "tehsil": 9478207000,
+    "mobile": "basian, Godwal",
+    "type": "Kanungo",
+    "lat": 30.792319026905194,
+    "lng": 75.77261794347727
+  },
+  {
+    "id": "kanungo_Jaswant singh",
+    "name": "Raikot",
+    "tehsil": 9517000300,
+    "mobile": "Raikot",
+    "type": "Kanungo",
+    "lat": 30.926266677342667,
+    "lng": 75.79147983882598
+  },
+  {
+    "id": "kanungo_Harjinder kaur",
+    "name": "Raikot",
+    "tehsil": 9872001877,
+    "mobile": "Pakhowal",
+    "type": "Kanungo",
+    "lat": 30.97224384994195,
+    "lng": 75.79898533233022
+  },
+  {
+    "id": "kanungo_Parminder Singh",
+    "name": "Khanna",
+    "tehsil": 8760200009,
+    "mobile": "Khanna and Isru",
+    "type": "Kanungo",
+    "lat": 30.886073024272896,
+    "lng": 75.83302548401744
+  },
+  {
+    "id": "kanungo_Ravinderpal Singh",
+    "name": "Khanna",
+    "tehsil": 9872800200,
+    "mobile": "Bija",
+    "type": "Kanungo",
+    "lat": 30.879605000726514,
+    "lng": 75.99939127422182
+  }
+]
