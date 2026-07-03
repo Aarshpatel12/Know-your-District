@@ -1,1 +1,277 @@
-[]
+[
+  {
+    "id": "hosp_1",
+    "name": "CIVIL HOSPITAL LUDHIANA",
+    "type": "DH",
+    "ownership": "Government",
+    "tehsil": "Ludhiana",
+    "address": "Lord Mahavir civil hospital Ludhiana, Fieldganj, pin code - 141008",
+    "mobile": "Dr. Rohit Rampal - 9872400169",
+    "lat": 30.9067,
+    "lng": 75.8608
+  },
+  {
+    "id": "hosp_2",
+    "name": "KHANNA SDH",
+    "type": "SDH",
+    "ownership": "Government",
+    "tehsil": "Khanna",
+    "address": "Gulam Mohammad diwana hospital Khanna",
+    "mobile": "Dr. Maninder Singh Bhasin - 9876024199",
+    "lat": 30.7045,
+    "lng": 76.2175
+  },
+  {
+    "id": "hosp_3",
+    "name": "JAGRAON SDH",
+    "type": "SDH",
+    "ownership": "Government",
+    "tehsil": "Jagraon",
+    "address": "Frozpur road Jagraon",
+    "mobile": "Dr.Gurbinder Kaur - 9872462818",
+    "lat": 30.7938,
+    "lng": 75.476097
+  },
+  {
+    "id": "hosp_4",
+    "name": "SAMRALA SDH",
+    "type": "SDH",
+    "ownership": "Government",
+    "tehsil": "Samrala",
+    "address": "MACHHIWARA ROAD SAMRALA, LUDHIANA-141114",
+    "mobile": "DR SARIKA - 9463910991",
+    "lat": 30.8357,
+    "lng": 76.191
+  },
+  {
+    "id": "hosp_5",
+    "name": "RAIKOT SDH",
+    "type": "SDH",
+    "ownership": "Government",
+    "tehsil": "Raikot",
+    "address": "Near Tehsil Complex Raikot",
+    "mobile": "Dr. Mandeep Singh - 9814926962",
+    "lat": 30.6441,
+    "lng": 75.5806
+  },
+  {
+    "id": "hosp_6",
+    "name": "MACHHIWARA CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Machhiwara",
+    "address": "Near Nabhi Khan Gani Khan Gate Bus stand Road Machhiwara",
+    "mobile": "Dr. Jasdev Singh - 9872598055",
+    "lat": 30.9126,
+    "lng": 76.1972
+  },
+  {
+    "id": "hosp_7",
+    "name": "MANNUPUR CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Samrala",
+    "address": "NEAR GOVT SR.SEC. SCHOOL MANUPUR",
+    "mobile": "Dr.Sudeep Sidhu - 9855580903",
+    "lat": 30.76562,
+    "lng": 76.26592
+  },
+  {
+    "id": "hosp_8",
+    "name": "PAYAL CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Payal",
+    "address": "Near Police station",
+    "mobile": "Dr. Harvinder Singh - 9464034843",
+    "lat": 30.724318,
+    "lng": 76.062139
+  },
+  {
+    "id": "hosp_9",
+    "name": "MALAUDH CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Payal",
+    "address": "Near Bank of india",
+    "mobile": "Dr.Harbinder Singh - 9814067540",
+    "lat": 30.6333,
+    "lng": 75.9333
+  },
+  {
+    "id": "hosp_10",
+    "name": "SAHNEWAL CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Ludhiana",
+    "address": "opp dream park, sahnewal",
+    "mobile": "Dr. Ramesh Kumar - 9855716180",
+    "lat": 30.8406,
+    "lng": 75.9794
+  },
+  {
+    "id": "hosp_11",
+    "name": "KOOMKALAN CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Koom Kalan",
+    "address": "near Senior secondary hospital chc koom kalan",
+    "mobile": "Dr.Rupinder Gill - 9915300543",
+    "lat": 30.89107,
+    "lng": 75.87729
+  },
+  {
+    "id": "hosp_12",
+    "name": "Sidhawan bet CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Sidhawan bet",
+    "address": "opposite police station",
+    "mobile": "Dr Mandeep singh - 9814926962",
+    "lat": 30.908,
+    "lng": 75.529
+  },
+  {
+    "id": "hosp_13",
+    "name": "PAKHOWAL CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Pakhowal",
+    "address": "Near Patrol Pump dangon Pakhowal",
+    "mobile": "Dr. Neelam - 9815245642",
+    "lat": 30.8788722,
+    "lng": 75.8182907
+  },
+  {
+    "id": "hosp_14",
+    "name": "SUDHAR CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Sudhar",
+    "address": "Opposite GHG Khalsa College Sudhar",
+    "mobile": "Dr. Davinder Kumar - 9872035799",
+    "lat": 30.774381,
+    "lng": 75.648774
+  },
+  {
+    "id": "hosp_15",
+    "name": "HATHUR CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Hathur",
+    "address": "Near Post Office Hathur",
+    "mobile": "Dr. Aman Sharma - 9592381831",
+    "lat": 30.6007,
+    "lng": 75.4297
+  },
+  {
+    "id": "hosp_16",
+    "name": "DEHLON CHC",
+    "type": "CHC",
+    "ownership": "Government",
+    "tehsil": "Ludhiana East",
+    "address": "Near police Satation",
+    "mobile": "Dr.Puneet Sidhu - 9872217849",
+    "lat": 30.7425,
+    "lng": 75.8461
+  },
+  {
+    "id": "hosp_17",
+    "name": "VARDMAN UCHC",
+    "type": "UCHC",
+    "ownership": "Government",
+    "tehsil": "Ludhiana",
+    "address": "Sec 32 Chandigarh Road, Near Division No. 7 Police station, Ludhiana",
+    "mobile": "Dr.Savita - 9872380508",
+    "lat": 30.911123,
+    "lng": 75.890682
+  },
+  {
+    "id": "hosp_18",
+    "name": "JAWADDI UCHC",
+    "type": "UCHC",
+    "ownership": "Government",
+    "tehsil": "Ludhiana",
+    "address": "canal road,near pancham hospital, Ludhiana",
+    "mobile": "dr kawaljeet kaur - 9501166663",
+    "lat": 30.880799,
+    "lng": 75.830205
+  },
+  {
+    "id": "hosp_19",
+    "name": "UCHC CS COMPLEX",
+    "type": "UCHC",
+    "ownership": "Government",
+    "tehsil": "Ludhiana",
+    "address": "civil surgeon office near pavilion mall ludhiana",
+    "mobile": "Dr. Kanwaljeet Kaur - 9501166663",
+    "lat": 30.92,
+    "lng": 75.84
+  },
+  {
+    "id": "hosp_20",
+    "name": "SHIMLAPURI UCHC",
+    "type": "UCHC",
+    "ownership": "Government",
+    "tehsil": "Ludhiana",
+    "address": "uchc shimlapuri adjoining smaj bhalai complex building near gill canal ludhiana",
+    "mobile": "Dr. Bindu - 9855721304",
+    "lat": 30.8669,
+    "lng": 75.8752
+  },
+  {
+    "id": "hosp_21",
+    "name": "SUBASH NAGAR UCHC",
+    "type": "UCHC",
+    "ownership": "Government",
+    "tehsil": "Ludhiana",
+    "address": "UCHC SUBHASH NAGAR BANDA BAHADAR COLONY NEAR SHAMSHAN GHAT",
+    "mobile": "Dr.Ramninder kaur Gill - 9814432400",
+    "lat": 30.935219,
+    "lng": 75.88402
+  },
+  {
+    "id": "hosp_22",
+    "name": "GIASPURA UCHC",
+    "type": "UCHC",
+    "ownership": "Government",
+    "tehsil": "Ludhiana",
+    "address": "UCHC Giaspura near govt flats",
+    "mobile": "Dr. Ramesh Kumar - 9855716180",
+    "lat": 30.8589,
+    "lng": 75.8894
+  },
+  {
+    "id": "hosp_23",
+    "name": "Gagan hospital",
+    "type": "Hospital",
+    "ownership": "Private",
+    "tehsil": "Dehlon",
+    "address": "opp.milan palace dehlon",
+    "mobile": "Dr.Gagandeep Sharma - 9888495359",
+    "lat": 30.746567,
+    "lng": 75.851669
+  },
+  {
+    "id": "hosp_24",
+    "name": "Mehta Hospital",
+    "type": "Hospital",
+    "ownership": "Private",
+    "tehsil": "Payal",
+    "address": "Mehta hospital doraha near society petrol pump doraha",
+    "mobile": "Dr.Rohit Mehta - 7888579019",
+    "lat": 30.795,
+    "lng": 76.035238
+  },
+  {
+    "id": "hosp_25",
+    "name": "RAJWANT HOSPITAL",
+    "type": "Hospital",
+    "ownership": "Private",
+    "tehsil": "Payal",
+    "address": "Rajwant Hospital GT Road (NH 1), SBS Nagar, Doraha, Ludhiana, Punjab - 141421",
+    "mobile": "Dr. Jaskirat Singh Pandher - 9878432457",
+    "lat": 30.795864,
+    "lng": 76.033238
+  }
+]

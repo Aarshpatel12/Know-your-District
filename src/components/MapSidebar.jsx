@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigation, Phone, MapPin, Users, Building2, Baby } from 'lucide-react';
+import { Navigation, Phone, MapPin, Users, Building2, Baby, Stethoscope } from 'lucide-react';
 
 const CATEGORY_CONFIG = {
   patwari:    { label: 'Patwari Directory',      color: 'green',  icon: <MapPin size={14} /> },
@@ -8,6 +8,9 @@ const CATEGORY_CONFIG = {
   kanungos:   { label: 'Kanungo Directory',      color: 'purple', icon: <Users size={14} /> },
   sewakendra: { label: 'Sewa Kendra Directory',  color: 'orange', icon: <Building2 size={14} /> },
   sewakendras:{ label: 'Sewa Kendra Directory',  color: 'orange', icon: <Building2 size={14} /> },
+  hospital:   { label: 'Govt Health Facilities', color: 'blue',   icon: <Stethoscope size={14} /> },
+  hospitals:  { label: 'Govt Health Facilities', color: 'blue',   icon: <Stethoscope size={14} /> },
+  shc:        { label: 'Govt Health Facilities', color: 'blue',   icon: <Stethoscope size={14} /> },
   awc:        { label: 'Anganwadi Centers',       color: 'pink',   icon: <Baby size={14} /> },
   awcs:       { label: 'Anganwadi Centers',       color: 'pink',   icon: <Baby size={14} /> },
 };
@@ -16,6 +19,7 @@ const ACCENT = {
   green:  { header: 'bg-green-700',  badge: 'bg-green-100 text-green-800',  active: 'border-green-600 bg-green-50',  locate: 'bg-green-600 hover:bg-green-700' },
   purple: { header: 'bg-purple-700', badge: 'bg-purple-100 text-purple-800', active: 'border-purple-600 bg-purple-50', locate: 'bg-purple-600 hover:bg-purple-700' },
   orange: { header: 'bg-orange-600', badge: 'bg-orange-100 text-orange-800', active: 'border-orange-500 bg-orange-50', locate: 'bg-orange-500 hover:bg-orange-600' },
+  blue:   { header: 'bg-blue-600',   badge: 'bg-blue-100 text-blue-800',    active: 'border-blue-500 bg-blue-50',    locate: 'bg-blue-600 hover:bg-blue-700' },
   pink:   { header: 'bg-pink-600',   badge: 'bg-pink-100 text-pink-800',    active: 'border-pink-500 bg-pink-50',    locate: 'bg-pink-600 hover:bg-pink-700' },
 };
 
@@ -76,6 +80,26 @@ function SewaKendraCard({ item }) {
   );
 }
 
+function HospitalCard({ item }) {
+  return (
+    <div className="mt-1.5 space-y-0.5">
+      {item.tehsil && <p className="text-xs text-gray-500 font-medium">📍 {item.tehsil}</p>}
+      {item.type && (
+        <p className="text-xs text-gray-600">
+          <span className="font-semibold">Facility Type: </span>{item.type}
+        </p>
+      )}
+      {item.ownership && (
+        <p className="text-xs text-gray-600">
+          <span className="font-semibold">Ownership: </span>{item.ownership}
+        </p>
+      )}
+      {item.address && <p className="text-xs text-gray-500 break-words line-clamp-2" title={item.address}>{item.address}</p>}
+      {item.mobile && <PhoneLink number={item.mobile} />}
+    </div>
+  );
+}
+
 function AwcCard({ item }) {
   return (
     <div className="mt-1.5 space-y-0.5">
@@ -105,6 +129,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
   const accent = ACCENT[cfg.color] || ACCENT.green;
   const isKanungo = category === 'kanungo' || category === 'kanungos';
   const isAwc     = category === 'awc'     || category === 'awcs';
+  const isHospital= category === 'hospital'|| category === 'hospitals' || category === 'shc';
 
   const filteredData = data.filter(item => {
     const q = search.toLowerCase();
@@ -122,12 +147,14 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
   const getPlaceholder = () => {
     if (isKanungo) return 'Search by name, tehsil, circles, mobile...';
     if (isAwc)     return 'Search by name, village, worker, assembly...';
+    if (isHospital)return 'Search by facility name, tehsil, address, type...';
     return 'Search by name, tehsil or circles...';
   };
 
   const renderCard = (item) => {
     if (isAwc)     return <AwcCard     item={item} />;
     if (isKanungo) return <KanungoCard item={item} />;
+    if (isHospital)return <HospitalCard item={item} />;
     if (category === 'sewakendra' || category === 'sewakendras') return <SewaKendraCard item={item} />;
     return <PatwariCard item={item} />;
   };

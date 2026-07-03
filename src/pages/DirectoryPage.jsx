@@ -9,12 +9,14 @@ import patwariData   from '../assets/data/patwaris.json';
 import sewakendraData from '../assets/data/sewakendras.json';
 import kanungoData   from '../assets/data/kanungos.json';
 import awcData       from '../assets/data/awcs.json';
+import hospitalData  from '../assets/data/hospitals.json';
 
 function getBaseData(category) {
   if (category === 'patwari'    || category === 'patwaris')    return patwariData;
   if (category === 'kanungo'    || category === 'kanungos')    return kanungoData;
   if (category === 'sewakendra' || category === 'sewakendras') return sewakendraData;
   if (category === 'awc'        || category === 'awcs')        return awcData;
+  if (category === 'hospital'   || category === 'hospitals' || category === 'shc') return hospitalData;
   return [];
 }
 

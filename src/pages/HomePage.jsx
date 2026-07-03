@@ -8,7 +8,7 @@ export default function HomePage() {
   const categories = [
     { id: 'patwari',    title: 'Find My Patwari',    icon: <MapPin size={32} />,      color: 'bg-green-600',  count: '213 Locations' },
     { id: 'kanungos',   title: 'Kanungos',            icon: <Users size={32} />,       color: 'bg-purple-600', count: '38 Locations' },
-    { id: 'hospitals',  title: 'SHC',                 icon: <Stethoscope size={32} />, color: 'bg-blue-600',   count: 'Coming Soon' },
+    { id: 'hospitals',  title: 'SHC',                 icon: <Stethoscope size={32} />, color: 'bg-blue-600',   count: '25 Locations' },
     { id: 'sewakendra', title: 'Sewa Kendras',        icon: <Building2 size={32} />,   color: 'bg-orange-600', count: '42 Locations' },
     { id: 'awc',        title: 'Anganwadi Centers',   icon: <Baby size={32} />,        color: 'bg-pink-600',   count: '2,477 Centers' },
   ];
