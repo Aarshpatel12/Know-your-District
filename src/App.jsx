@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import DirectoryPage from './pages/DirectoryPage';
 import GlobalHeader from './components/GlobalHeader';
+import ChatWidget from './components/ChatWidget';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/directory/:category" element={<DirectoryPage />} />
         </Routes>
       </div>
+      <ChatWidget />
     </div>
   );
 }
