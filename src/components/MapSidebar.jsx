@@ -413,11 +413,19 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
   const isBlo     = category === 'blo';
 
   const uniqueAssemblies = isBlo ? [...new Set(data.map(item => item.assembly).filter(Boolean))].sort() : [];
-  const uniquePartNos = isBlo ? [...new Set(data
-    .filter(item => !assemblyFilter || item.assembly === assemblyFilter)
-    .map(item => item.partNo)
-    .filter(Boolean)
-  )].sort((a, b) => parseInt(a) - parseInt(b)) : [];
+  const uniquePartNos = isBlo ? (() => {
+    const map = new Map();
+    data.filter(item => !assemblyFilter || item.assembly === assemblyFilter)
+        .filter(item => item.partNo)
+        .forEach(item => {
+          if (!map.has(item.partNo)) {
+             map.set(item.partNo, item.partName || '');
+          }
+        });
+    return Array.from(map.entries())
+      .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
+      .map(([partNo, partName]) => ({ partNo, partName }));
+  })() : [];
   const uniqueDesignations = isBlo ? [...new Set(data.map(item => item.designation).filter(Boolean))].sort() : [];
   const uniqueDepartments = isBlo ? [...new Set(data.map(item => item.department).filter(Boolean))].sort() : [];
 
@@ -569,7 +577,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
               className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
               <option value="">All Part Nos</option>
-              {uniquePartNos.map(p => <option key={p} value={p}>{p}</option>)}
+              {uniquePartNos.map(p => <option key={p.partNo} value={p.partNo}>{p.partNo}{p.partName ? ` - ${p.partName}` : ''}</option>)}
             </select>
 
             <select
@@ -600,6 +608,17 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
               <option value="no">No Phone</option>
             </select>
           </div>
+        )}
+
+        {isBlo && (
+          <a
+            href="https://electoralsearch.eci.gov.in/uesfmempmlkypo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full mt-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors text-sm shadow-sm"
+          >
+            🔍 Search Your Name in Voter List (ECI)
+          </a>
         )}
 
         {!isBlo && (
