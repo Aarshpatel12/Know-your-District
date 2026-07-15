@@ -10,6 +10,7 @@ import sewakendraData from '../assets/data/sewakendras.json';
 import kanungoData   from '../assets/data/kanungos.json';
 import awcData       from '../assets/data/awcs.json';
 import hospitalData  from '../assets/data/hospitals.json';
+import bloData       from '../assets/data/blo.json';
 
 function getBaseData(category) {
   if (category === 'patwari'    || category === 'patwaris')    return patwariData;
@@ -17,6 +18,7 @@ function getBaseData(category) {
   if (category === 'sewakendra' || category === 'sewakendras') return sewakendraData;
   if (category === 'awc'        || category === 'awcs')        return awcData;
   if (category === 'hospital'   || category === 'hospitals' || category === 'shc') return hospitalData;
+  if (category === 'blo')       return bloData;
   return [];
 }
 
@@ -205,50 +207,54 @@ export default function DirectoryPage() {
       )}
 
       {/* ── Mobile Tab Bar ── */}
-      <div className="flex md:hidden shrink-0 bg-white border-b shadow-sm z-30">
-        {['list', 'map'].map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setMobileTab(tab)}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-semibold border-b-2 transition-all ${
-              mobileTab === tab
-                ? 'text-green-700 border-green-700 bg-green-50'
-                : 'text-gray-500 border-transparent'
-            }`}
-          >
-            {tab === 'list' ? <List size={16} /> : <Map size={16} />}
-            {tab.charAt(0).toUpperCase() + tab.slice(1)}
-          </button>
-        ))}
-      </div>
+      {category !== 'blo' && (
+        <div className="flex md:hidden shrink-0 bg-white border-b shadow-sm z-30">
+          {['list', 'map'].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setMobileTab(tab)}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-semibold border-b-2 transition-all ${
+                mobileTab === tab
+                  ? 'text-green-700 border-green-700 bg-green-50'
+                  : 'text-gray-500 border-transparent'
+              }`}
+            >
+              {tab === 'list' ? <List size={16} /> : <Map size={16} />}
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* ── Body ── */}
-      <div className="relative flex flex-1 overflow-hidden min-h-0">
+      <div className="relative flex flex-1 overflow-hidden min-h-0 bg-gray-50">
 
         {/* MAP */}
-        <div className="absolute inset-0 md:relative md:flex-1">
-          <MapView
-            data={data}
-            activeItem={activeItem}
-            setActiveItem={handleSetActiveItem}
-            userLocation={userLocation}
-            isTracking={isTracking}
-            isNavigating={isNavigating}
-            deviceHeading={deviceHeading}
-            distanceToDestination={distanceToDestination}
-            onStartNavigation={handleStartNavigation}
-            onStopNavigation={handleStopNavigation}
-          />
-        </div>
+        {category !== 'blo' && (
+          <div className="absolute inset-0 md:relative md:flex-1">
+            <MapView
+              data={data}
+              activeItem={activeItem}
+              setActiveItem={handleSetActiveItem}
+              userLocation={userLocation}
+              isTracking={isTracking}
+              isNavigating={isNavigating}
+              deviceHeading={deviceHeading}
+              distanceToDestination={distanceToDestination}
+              onStartNavigation={handleStartNavigation}
+              onStopNavigation={handleStopNavigation}
+            />
+          </div>
+        )}
 
         {/* SIDEBAR */}
         <div
           className={`
             absolute inset-0 z-10
             md:relative md:inset-auto md:z-auto
-            md:w-96 md:shrink-0
             transition-transform duration-300
-            ${mobileTab === 'list'
+            ${category === 'blo' ? 'w-full md:w-full max-w-6xl mx-auto shadow-md' : 'md:w-96 md:shrink-0'}
+            ${mobileTab === 'list' || category === 'blo'
               ? 'translate-x-0'
               : '-translate-x-full md:translate-x-0'}
           `}

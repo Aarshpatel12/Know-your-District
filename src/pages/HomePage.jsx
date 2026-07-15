@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Building2, Stethoscope, Users, Baby } from 'lucide-react';
+import { MapPin, Building2, Stethoscope, Users, Baby, UserCheck } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function HomePage() {
@@ -12,7 +12,8 @@ export default function HomePage() {
     { id: 'kanungos',   title: t('cat_kanungos'),            icon: <Users size={32} />,       color: 'bg-purple-600', count: `38 ${t('loc_count')}` },
     { id: 'hospitals',  title: t('cat_shc'),                 icon: <Stethoscope size={32} />, color: 'bg-blue-600',   count: `25 ${t('loc_count')}` },
     { id: 'sewakendra', title: t('cat_sewa'),        icon: <Building2 size={32} />,   color: 'bg-orange-600', count: `42 ${t('loc_count')}` },
-    { id: 'awc',        title: t('cat_awc'),   icon: <Baby size={32} />,        color: 'bg-pink-600',   count: `2,477 ${t('center_count')}` },
+    { id: 'blo',        title: t('cat_blo'),         icon: <UserCheck size={32} />,   color: 'bg-indigo-600', count: `2,928 ${t('loc_count')}` },
+    { id: 'awc',        title: t('cat_awc'),         icon: <Baby size={32} />,        color: 'bg-pink-600',   count: `2,477 ${t('center_count')}` },
   ];
 
   return (

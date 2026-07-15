@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Navigation, Phone, MapPin, Users, Building2, Baby, Stethoscope, Mic, Camera } from 'lucide-react';
+import { Navigation, Phone, MapPin, Users, Building2, Baby, Stethoscope, Mic, Camera, UserCheck } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Tesseract from 'tesseract.js';
 
@@ -15,6 +15,7 @@ const CATEGORY_CONFIG = {
   shc:        { label: 'Govt Health Facilities', color: 'blue',   icon: <Stethoscope size={14} /> },
   awc:        { label: 'Anganwadi Centers',       color: 'pink',   icon: <Baby size={14} /> },
   awcs:       { label: 'Anganwadi Centers',       color: 'pink',   icon: <Baby size={14} /> },
+  blo:        { label: 'BLO Directory',           color: 'indigo', icon: <UserCheck size={14} /> },
 };
 
 const ACCENT = {
@@ -23,6 +24,7 @@ const ACCENT = {
   orange: { header: 'bg-orange-600', badge: 'bg-orange-100 text-orange-800', active: 'border-orange-500 bg-orange-50', locate: 'bg-orange-500 hover:bg-orange-600' },
   blue:   { header: 'bg-blue-600',   badge: 'bg-blue-100 text-blue-800',    active: 'border-blue-500 bg-blue-50',    locate: 'bg-blue-600 hover:bg-blue-700' },
   pink:   { header: 'bg-pink-600',   badge: 'bg-pink-100 text-pink-800',    active: 'border-pink-500 bg-pink-50',    locate: 'bg-pink-600 hover:bg-pink-700' },
+  indigo: { header: 'bg-indigo-600', badge: 'bg-indigo-100 text-indigo-800', active: 'border-indigo-500 bg-indigo-50', locate: 'bg-indigo-600 hover:bg-indigo-700' },
 };
 
 function PhoneLink({ number }) {
@@ -243,8 +245,48 @@ function AwcCard({ item }) {
   );
 }
 
+function BloCard({ item }) {
+  return (
+    <div className="mt-2 flex flex-col h-full justify-between gap-2">
+      <div className="grid grid-cols-2 gap-2 mb-1">
+        {item.assembly && (
+          <div className="bg-indigo-50 rounded-lg p-2 border border-indigo-100 flex flex-col">
+             <span className="text-[10px] text-indigo-400 uppercase font-bold tracking-wider">Assembly</span>
+             <span className="text-xs text-indigo-900 font-bold truncate" title={item.assembly}>{item.assembly}</span>
+          </div>
+        )}
+        {item.partNo && (
+          <div className="bg-emerald-50 rounded-lg p-2 border border-emerald-100 flex flex-col">
+             <span className="text-[10px] text-emerald-500 uppercase font-bold tracking-wider">Part No</span>
+             <span className="text-xs text-emerald-900 font-bold truncate" title={item.partNo}>{item.partNo}</span>
+          </div>
+        )}
+      </div>
+      
+      {item.designation && (
+        <div className="mt-1">
+          <span className="text-[11px] text-gray-700 bg-gray-50 px-2 py-1 rounded-md border font-medium border-gray-200 shadow-sm inline-block">
+            💼 {item.designation} {item.department ? `(${item.department})` : ''}
+          </span>
+        </div>
+      )}
+      {item.epicNumber && (
+        <p className="text-xs text-slate-500 font-mono mt-1 px-1 tracking-tight">EPIC: <span className="font-semibold text-slate-700">{item.epicNumber}</span></p>
+      )}
+      <div className="mt-3 pt-3 border-t border-gray-100 flex gap-2">
+        <PhoneLink number={item.mobile} />
+      </div>
+    </div>
+  );
+}
+
 export default function MapSidebar({ data, activeItem, setActiveItem, category, onLocateMe, userLocation, locating, isTracking, isNavigating, onStartNavigation }) {
   const [search, setSearch] = useState('');
+  const [epicPartSearch, setEpicPartSearch] = useState('');
+  const [assemblyFilter, setAssemblyFilter] = useState('');
+  const [designationFilter, setDesignationFilter] = useState('');
+  const [departmentFilter, setDepartmentFilter] = useState('');
+  const [phoneFilter, setPhoneFilter] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -367,8 +409,28 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
   const isKanungo = category === 'kanungo' || category === 'kanungos';
   const isAwc     = category === 'awc'     || category === 'awcs';
   const isHospital= category === 'hospital'|| category === 'hospitals' || category === 'shc';
+  const isBlo     = category === 'blo';
+
+  const uniqueAssemblies = isBlo ? [...new Set(data.map(item => item.assembly).filter(Boolean))].sort() : [];
+  const uniqueDesignations = isBlo ? [...new Set(data.map(item => item.designation).filter(Boolean))].sort() : [];
+  const uniqueDepartments = isBlo ? [...new Set(data.map(item => item.department).filter(Boolean))].sort() : [];
 
   const filteredData = data.filter(item => {
+    if (isBlo) {
+      if (epicPartSearch) {
+        const p = epicPartSearch.toLowerCase();
+        const matchesEpic = item.epicNumber?.toLowerCase().includes(p);
+        const matchesPart = item.partNo?.toLowerCase() === p;
+        if (!matchesEpic && !matchesPart) return false;
+      } else {
+        if (assemblyFilter && item.assembly !== assemblyFilter) return false;
+        if (designationFilter && item.designation !== designationFilter) return false;
+        if (departmentFilter && item.department !== departmentFilter) return false;
+        if (phoneFilter === 'yes' && !item.mobile) return false;
+        if (phoneFilter === 'no' && item.mobile) return false;
+      }
+    }
+    
     const q = search.toLowerCase();
     return (
       item.name?.toLowerCase().includes(q) ||
@@ -376,6 +438,8 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
       item.tehsil?.toLowerCase().includes(q) ||
       item.village?.toLowerCase().includes(q) ||
       item.assembly?.toLowerCase().includes(q) ||
+      item.partNo?.toLowerCase().includes(q) ||
+      item.epicNumber?.toLowerCase().includes(q) ||
       item.workerName?.toLowerCase().includes(q) ||
       item.mobile?.includes(q)
     );
@@ -383,13 +447,17 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
 
   const handleWhatsAppShare = (e, item) => {
     e.stopPropagation();
-    let text = `*Know Your Government - Official Details*\n`;
+    let text = `*Know Your District - Official Details*\n`;
     text += `Name: ${item.name || 'N/A'}\n`;
     if (item.mobile) text += `Mobile: ${item.mobile}\n`;
     if (item.workerMobile) text += `Mobile: ${item.workerMobile}\n`;
     if (item.tehsil) text += `Tehsil: ${item.tehsil}\n`;
     if (item.village) text += `Village: ${item.village}\n`;
     if (item.circle) text += `Circle: ${item.circle}\n`;
+    if (item.assembly) text += `Assembly: ${item.assembly}\n`;
+    if (item.partNo) text += `Part No: ${item.partNo}\n`;
+    if (item.designation) text += `Designation: ${item.designation}\n`;
+    if (item.epicNumber) text += `EPIC Number: ${item.epicNumber}\n`;
     
     if (item.lat && item.lng) {
       text += `\nMap Location: https://maps.google.com/?q=${item.lat},${item.lng}`;
@@ -420,6 +488,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
     if (isAwc)     return <AwcCard     item={item} />;
     if (isKanungo) return <KanungoCard item={item} />;
     if (isHospital)return <HospitalCard item={item} />;
+    if (isBlo)     return <BloCard item={item} />;
     if (category === 'sewakendra' || category === 'sewakendras') return <SewaKendraCard item={item} />;
     return <PatwariCard item={item} />;
   };
@@ -461,46 +530,102 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
             <Mic size={16} className="relative z-10" />
           </button>
         </div>
-        <button
-          onClick={onLocateMe}
-          disabled={locating}
-          className={`w-full text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors text-sm disabled:opacity-70 ${
-            isTracking
-              ? 'bg-red-500 hover:bg-red-600'          // stop tracking
-              : userLocation
-              ? 'bg-green-600 hover:bg-green-700'      // located, not live
-              : `${accent.locate}`                     // not yet located
-          }`}
-        >
-          {locating ? (
-            <>
-              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
-              </svg>
-              Getting your location...
-            </>
-          ) : isTracking ? (
-            <>
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
-              </span>
-              Live · Sorted by Nearest · Tap to Stop
-            </>
-          ) : (
-            <>
-              <Navigation size={16} />
-              {userLocation ? 'Update My Location' : 'Use My Live Location'}
-            </>
-          )}
-        </button>
+        
+        {isBlo && (
+          <div className="mb-1">
+            <input
+              type="text"
+              placeholder="🪪 Find by Part No. or EPIC"
+              value={epicPartSearch}
+              onChange={(e) => setEpicPartSearch(e.target.value)}
+              className="w-full px-3 py-2 border-2 border-indigo-200 rounded-lg text-sm bg-white focus:outline-none focus:border-indigo-500 font-medium"
+            />
+          </div>
+        )}
+
+        {isBlo && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+            <select
+              value={assemblyFilter}
+              onChange={(e) => setAssemblyFilter(e.target.value)}
+              className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            >
+              <option value="">All Assemblies</option>
+              {uniqueAssemblies.map(a => <option key={a} value={a}>{a}</option>)}
+            </select>
+
+            <select
+              value={designationFilter}
+              onChange={(e) => setDesignationFilter(e.target.value)}
+              className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            >
+              <option value="">All Designations</option>
+              {uniqueDesignations.map(d => <option key={d} value={d}>{d}</option>)}
+            </select>
+
+            <select
+              value={departmentFilter}
+              onChange={(e) => setDepartmentFilter(e.target.value)}
+              className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            >
+              <option value="">All Departments</option>
+              {uniqueDepartments.map(d => <option key={d} value={d}>{d}</option>)}
+            </select>
+
+            <select
+              value={phoneFilter}
+              onChange={(e) => setPhoneFilter(e.target.value)}
+              className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            >
+              <option value="">Phone: Any</option>
+              <option value="yes">Has Phone</option>
+              <option value="no">No Phone</option>
+            </select>
+          </div>
+        )}
+
+        {!isBlo && (
+          <button
+            onClick={onLocateMe}
+            disabled={locating}
+            className={`w-full text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors text-sm disabled:opacity-70 ${
+              isTracking
+                ? 'bg-red-500 hover:bg-red-600'          // stop tracking
+                : userLocation
+                ? 'bg-green-600 hover:bg-green-700'      // located, not live
+                : `${accent.locate}`                     // not yet located
+            }`}
+          >
+            {locating ? (
+              <>
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Finding location...</span>
+              </>
+            ) : isTracking ? (
+              <>
+                <span className="relative flex h-2.5 w-2.5 shrink-0 mr-1">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                </span>
+                <span>Stop Live Tracking</span>
+              </>
+            ) : (
+              <>
+                <Navigation size={18} />
+                <span>{userLocation ? 'Sort by Nearest' : 'Find Nearest to Me'}</span>
+              </>
+            )}
+          </button>
+        )}
       </div>
 
       {/* List */}
-      <div className="flex-1 overflow-y-auto divide-y divide-gray-100">
+      <div className={`flex-1 overflow-y-auto ${isBlo ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 bg-gray-50 items-start content-start' : 'divide-y divide-gray-100'}`}>
         {filteredData.length === 0 ? (
-          <div className="p-8 text-center text-gray-400">
+          <div className="p-8 text-center text-gray-400 col-span-full">
             <p className="text-sm font-medium">No results found</p>
             <p className="text-xs mt-1">Try a different search term</p>
           </div>
@@ -511,11 +636,10 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
               <div
                 key={item.id}
                 onClick={() => setActiveItem(item)}
-                className={`px-4 py-3 cursor-pointer transition-all border-l-4 ${
-                  isActive
-                    ? `${accent.active} border-l-4`
-                    : 'border-transparent hover:bg-gray-50'
-                }`}
+                className={isBlo 
+                  ? `bg-white rounded-xl shadow-sm border p-4 transition-all cursor-pointer hover:shadow-md ${isActive ? 'ring-2 ring-indigo-500 border-indigo-500' : 'border-gray-200 hover:border-indigo-300'}`
+                  : `px-4 py-3 cursor-pointer transition-all border-l-4 ${isActive ? `${accent.active} border-l-4` : 'border-transparent hover:bg-gray-50'}`
+                }
               >
                 <div className="flex justify-between items-start gap-2">
                   <h3 className={`font-semibold text-sm leading-tight ${isActive ? 'text-gray-900' : 'text-gray-800'}`}>
@@ -591,7 +715,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
                 )}
 
                 {/* Open in Google Maps Button */}
-                {isActive && (
+                {isActive && !isBlo && (
                   <button
                     onClick={(e) => handleGoogleMapsNavigation(e, item)}
                     style={{

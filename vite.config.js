@@ -12,7 +12,7 @@ export default defineConfig({
       },
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-icon-192.svg', 'pwa-icon-512.svg'],
       manifest: {
-        name: 'Know Your Government',
+        name: 'Know Your District',
         short_name: 'KnowYourGov',
         description: 'Civic Directory for District Administration Ludhiana',
         theme_color: '#15803d',
