@@ -463,6 +463,8 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
       text += `\nMap Location: https://maps.google.com/?q=${item.lat},${item.lng}`;
     }
     
+    text += `\n\nFind more officials at: https://knowyourdist.netlify.app/`;
+    
     const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   };
