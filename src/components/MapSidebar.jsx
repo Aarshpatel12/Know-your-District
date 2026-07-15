@@ -284,6 +284,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
   const [search, setSearch] = useState('');
   const [epicPartSearch, setEpicPartSearch] = useState('');
   const [assemblyFilter, setAssemblyFilter] = useState('');
+  const [partNoFilter, setPartNoFilter] = useState('');
   const [designationFilter, setDesignationFilter] = useState('');
   const [departmentFilter, setDepartmentFilter] = useState('');
   const [phoneFilter, setPhoneFilter] = useState('');
@@ -412,6 +413,11 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
   const isBlo     = category === 'blo';
 
   const uniqueAssemblies = isBlo ? [...new Set(data.map(item => item.assembly).filter(Boolean))].sort() : [];
+  const uniquePartNos = isBlo ? [...new Set(data
+    .filter(item => !assemblyFilter || item.assembly === assemblyFilter)
+    .map(item => item.partNo)
+    .filter(Boolean)
+  )].sort((a, b) => parseInt(a) - parseInt(b)) : [];
   const uniqueDesignations = isBlo ? [...new Set(data.map(item => item.designation).filter(Boolean))].sort() : [];
   const uniqueDepartments = isBlo ? [...new Set(data.map(item => item.department).filter(Boolean))].sort() : [];
 
@@ -424,6 +430,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
         if (!matchesEpic && !matchesPart) return false;
       } else {
         if (assemblyFilter && item.assembly !== assemblyFilter) return false;
+        if (partNoFilter && item.partNo !== partNoFilter) return false;
         if (designationFilter && item.designation !== designationFilter) return false;
         if (departmentFilter && item.department !== departmentFilter) return false;
         if (phoneFilter === 'yes' && !item.mobile) return false;
@@ -546,7 +553,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
         )}
 
         {isBlo && (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
             <select
               value={assemblyFilter}
               onChange={(e) => setAssemblyFilter(e.target.value)}
@@ -554,6 +561,15 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
             >
               <option value="">All Assemblies</option>
               {uniqueAssemblies.map(a => <option key={a} value={a}>{a}</option>)}
+            </select>
+
+            <select
+              value={partNoFilter}
+              onChange={(e) => setPartNoFilter(e.target.value)}
+              className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            >
+              <option value="">All Part Nos</option>
+              {uniquePartNos.map(p => <option key={p} value={p}>{p}</option>)}
             </select>
 
             <select
