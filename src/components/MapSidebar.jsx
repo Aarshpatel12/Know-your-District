@@ -2,20 +2,21 @@ import React, { useState, useRef } from 'react';
 import { Navigation, Phone, MapPin, Users, Building2, Baby, Stethoscope, Mic, Camera, UserCheck } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Tesseract from 'tesseract.js';
+import { useLanguage } from '../context/LanguageContext';
 
 const CATEGORY_CONFIG = {
-  patwari:    { label: 'Patwari Directory',      color: 'green',  icon: <MapPin size={14} /> },
-  patwaris:   { label: 'Patwari Directory',      color: 'green',  icon: <MapPin size={14} /> },
-  kanungo:    { label: 'Kanungo Directory',      color: 'purple', icon: <Users size={14} /> },
-  kanungos:   { label: 'Kanungo Directory',      color: 'purple', icon: <Users size={14} /> },
-  sewakendra: { label: 'Sewa Kendra Directory',  color: 'orange', icon: <Building2 size={14} /> },
-  sewakendras:{ label: 'Sewa Kendra Directory',  color: 'orange', icon: <Building2 size={14} /> },
-  hospital:   { label: 'Govt Health Facilities', color: 'blue',   icon: <Stethoscope size={14} /> },
-  hospitals:  { label: 'Govt Health Facilities', color: 'blue',   icon: <Stethoscope size={14} /> },
-  shc:        { label: 'Govt Health Facilities', color: 'blue',   icon: <Stethoscope size={14} /> },
-  awc:        { label: 'Anganwadi Centers',       color: 'pink',   icon: <Baby size={14} /> },
-  awcs:       { label: 'Anganwadi Centers',       color: 'pink',   icon: <Baby size={14} /> },
-  blo:        { label: 'BLO Directory',           color: 'indigo', icon: <UserCheck size={14} /> },
+  patwari:    { label: 'dir_patwari',      color: 'green',  icon: <MapPin size={14} /> },
+  patwaris:   { label: 'dir_patwari',      color: 'green',  icon: <MapPin size={14} /> },
+  kanungo:    { label: 'dir_kanungo',      color: 'purple', icon: <Users size={14} /> },
+  kanungos:   { label: 'dir_kanungo',      color: 'purple', icon: <Users size={14} /> },
+  sewakendra: { label: 'dir_sewakendra',  color: 'orange', icon: <Building2 size={14} /> },
+  sewakendras:{ label: 'dir_sewakendra',  color: 'orange', icon: <Building2 size={14} /> },
+  hospital:   { label: 'dir_hospital', color: 'blue',   icon: <Stethoscope size={14} /> },
+  hospitals:  { label: 'dir_hospital', color: 'blue',   icon: <Stethoscope size={14} /> },
+  shc:        { label: 'dir_hospital', color: 'blue',   icon: <Stethoscope size={14} /> },
+  awc:        { label: 'dir_awc',       color: 'pink',   icon: <Baby size={14} /> },
+  awcs:       { label: 'dir_awc',       color: 'pink',   icon: <Baby size={14} /> },
+  blo:        { label: 'dir_blo',           color: 'indigo', icon: <UserCheck size={14} /> },
 };
 
 const ACCENT = {
@@ -43,14 +44,15 @@ function PhoneLink({ number }) {
 }
 
 function KanungoCard({ item }) {
+  const { t } = useLanguage();
   return (
     <div className="mt-1.5 space-y-0.5">
       {item.tehsil && (
-        <p className="text-xs text-gray-500 font-medium">📍 {item.tehsil} Tehsil</p>
+        <p className="text-xs text-gray-500 font-medium">📍 {item.tehsil} {t('lbl_tehsil')}</p>
       )}
       {item.circle && (
         <p className="text-xs text-gray-600">
-          <span className="font-semibold">Circles: </span>{item.circle}
+          <span className="font-semibold">{t("lbl_circles")}: </span>{item.circle}
         </p>
       )}
       {item.mobile && <PhoneLink number={item.mobile} />}
@@ -59,6 +61,7 @@ function KanungoCard({ item }) {
 }
 
 function PatwariCard({ item }) {
+  const { t } = useLanguage();
   return (
     <div className="mt-1.5 space-y-0.5">
       {item.tehsil && (
@@ -66,7 +69,7 @@ function PatwariCard({ item }) {
       )}
       {item.circle && (
         <p className="text-xs text-gray-600">
-          <span className="font-semibold">Circles: </span>{item.circle}
+          <span className="font-semibold">{t("lbl_circles")}: </span>{item.circle}
         </p>
       )}
       {item.mobile && <PhoneLink number={item.mobile} />}
@@ -75,6 +78,7 @@ function PatwariCard({ item }) {
 }
 
 function BookingQueueWidget({ item }) {
+  const { t } = useLanguage();
   const [token, setToken] = useState(null);
   
   // Deterministic mock queue number based on item name length
@@ -90,9 +94,9 @@ function BookingQueueWidget({ item }) {
   return (
     <div className="mt-3 p-2.5 bg-gray-50 border border-gray-200 rounded-lg" onClick={e => e.stopPropagation()}>
       <div className="flex justify-between items-center mb-2">
-        <span className="text-[11px] font-semibold text-gray-700">Live Queue:</span>
+        <span className="text-[11px] font-semibold text-gray-700">{t("queue_live")}:</span>
         <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isCrowded ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-          {isCrowded ? '🔴 Crowded' : '🟢 Moderate'} ({queueCount} waiting)
+          {isCrowded ? `🔴 ${t('queue_crowded')}` : `🟢 ${t('queue_moderate')}`} ({queueCount} {t('queue_waiting')})
         </span>
       </div>
       
@@ -101,14 +105,14 @@ function BookingQueueWidget({ item }) {
           onClick={handleBook}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold py-2 rounded transition-colors flex items-center justify-center gap-1 shadow-sm"
         >
-          📅 Book a Slot (Free Token)
+          📅 {t('btn_book_slot')}
         </button>
       ) : (
         <div className="mt-2 flex flex-col items-center p-3 bg-white rounded-md border border-gray-200 shadow-sm">
-          <p className="text-[10px] text-gray-500 mb-0.5 uppercase tracking-wider font-semibold">Your Digital Token</p>
+          <p className="text-[10px] text-gray-500 mb-0.5 uppercase tracking-wider font-semibold">{t('lbl_digital_token')}</p>
           <h4 className="text-lg font-black text-gray-900 tracking-widest mb-2">{token}</h4>
           <QRCodeSVG value={token} size={80} level="M" />
-          <p className="text-[10px] text-gray-500 mt-2 text-center leading-tight">Show this QR at the counter to skip the queue.</p>
+          <p className="text-[10px] text-gray-500 mt-2 text-center leading-tight">{t('lbl_qr_desc')}</p>
         </div>
       )}
     </div>
@@ -116,6 +120,7 @@ function BookingQueueWidget({ item }) {
 }
 
 function DocumentScannerWidget() {
+  const { t } = useLanguage();
   const [isScanning, setIsScanning] = useState(false);
   const [scanResult, setScanResult] = useState(null);
   const [progress, setProgress] = useState('');
@@ -127,13 +132,13 @@ function DocumentScannerWidget() {
 
     setIsScanning(true);
     setScanResult(null);
-    setProgress('Initializing AI Scanner...');
+    setProgress(t('scan_init'));
 
     try {
       const result = await Tesseract.recognize(file, 'eng', {
         logger: m => {
           if (m.status === 'recognizing text') {
-            setProgress(`Scanning Document... ${Math.round(m.progress * 100)}%`);
+            setProgress(`${t('scan_progress')} ${Math.round(m.progress * 100)}%`);
           } else {
             setProgress(m.status);
           }
@@ -159,8 +164,8 @@ function DocumentScannerWidget() {
     <div className="mt-2 p-2.5 bg-gray-50 border border-gray-200 rounded-lg" onClick={e => e.stopPropagation()}>
       <div className="flex justify-between items-center mb-2">
         <span className="text-[11px] font-semibold text-gray-700">AI Document Check:</span>
-        {scanResult === 'verified' && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">✅ Verified</span>}
-        {scanResult === 'rejected' && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">❌ Unrecognized</span>}
+        {scanResult === 'verified' && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">✅ {t('scan_verified')}</span>}
+        {scanResult === 'rejected' && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">❌ {t('scan_rejected')}</span>}
       </div>
       
       <input
@@ -180,7 +185,7 @@ function DocumentScannerWidget() {
         {isScanning ? (
           <span className="animate-pulse">🔄 {progress}</span>
         ) : (
-          <><Camera size={14} /> Snap Document to Verify</>
+          <><Camera size={14} /> {t('scan_btn')}</>
         )}
       </button>
       {scanResult === 'rejected' && (
@@ -191,6 +196,7 @@ function DocumentScannerWidget() {
 }
 
 function SewaKendraCard({ item }) {
+  const { t } = useLanguage();
   return (
     <div className="mt-1.5 space-y-0.5">
       {item.tehsil && <p className="text-xs text-gray-500">📍 {item.tehsil}</p>}
@@ -203,6 +209,7 @@ function SewaKendraCard({ item }) {
 }
 
 function HospitalCard({ item }) {
+  const { t } = useLanguage();
   return (
     <div className="mt-1.5 space-y-0.5">
       {item.tehsil && <p className="text-xs text-gray-500 font-medium">📍 {item.tehsil}</p>}
@@ -224,6 +231,7 @@ function HospitalCard({ item }) {
 }
 
 function AwcCard({ item }) {
+  const { t } = useLanguage();
   return (
     <div className="mt-1.5 space-y-0.5">
       {item.village && (
@@ -246,6 +254,7 @@ function AwcCard({ item }) {
 }
 
 function BloCard({ item }) {
+  const { t } = useLanguage();
   return (
     <div className="mt-2 flex flex-col h-full justify-between gap-2">
       <div className="grid grid-cols-2 gap-2 mb-1">
@@ -279,10 +288,15 @@ function BloCard({ item }) {
 }
 
 export default function MapSidebar({ data, activeItem, setActiveItem, category, onLocateMe, userLocation, locating, isTracking, isNavigating, onStartNavigation }) {
+  const { t, currentLang } = useLanguage();
   const [search, setSearch] = useState('');
   const [epicPartSearch, setEpicPartSearch] = useState('');
   const [assemblyFilter, setAssemblyFilter] = useState('');
   const [partNoFilter, setPartNoFilter] = useState('');
+
+  const [isAutoDetecting, setIsAutoDetecting] = useState(false);
+  const [autoDetectMsg, setAutoDetectMsg] = useState('');
+
 
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
@@ -317,7 +331,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
                   taskType: "asr",
                   config: {
                     language: {
-                      sourceLanguage: "pa" // Punjabi
+                      sourceLanguage: currentLang
                     }
                   }
                 }
@@ -401,7 +415,8 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
     }
   };
 
-  const cfg   = CATEGORY_CONFIG[category] || { label: `${category} Directory`, color: 'green', icon: null };
+  const cfgRaw   = CATEGORY_CONFIG[category] || { label: `${category} Directory`, color: 'green', icon: null };
+  const cfg = { ...cfgRaw, label: CATEGORY_CONFIG[category] ? t(CATEGORY_CONFIG[category].label) : cfgRaw.label };
   const accent = ACCENT[cfg.color] || ACCENT.green;
   const isKanungo = category === 'kanungo' || category === 'kanungos';
   const isAwc     = category === 'awc'     || category === 'awcs';
@@ -423,6 +438,68 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
       .map(([partNo, partName]) => ({ partNo, partName }));
   })() : [];
 
+
+  
+  const handleAutoDetectBLO = () => {
+    if (!('geolocation' in navigator)) {
+      setAutoDetectMsg('⚠️ Geolocation not supported');
+      return;
+    }
+    
+    setIsAutoDetecting(true);
+    setAutoDetectMsg('⏳ Detecting your location...');
+    
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      try {
+        const { latitude, longitude } = pos.coords;
+        setAutoDetectMsg('🔍 Finding nearest area...');
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`);
+        const locData = await res.json();
+        
+        const address = locData.address || {};
+        const areas = [address.village, address.suburb, address.town, address.city, address.county, address.state_district].filter(Boolean);
+        
+        let matchedPart = null;
+        let matchedAssembly = null;
+        
+        for (const area of areas) {
+            const areaLower = area.toLowerCase();
+            const foundItem = data.find(p => 
+                (p.partName && (p.partName.toLowerCase().includes(areaLower) || areaLower.includes(p.partName.toLowerCase()))) ||
+                (p.assembly && (p.assembly.toLowerCase().includes(areaLower) || areaLower.includes(p.assembly.toLowerCase())))
+            );
+            if (foundItem) {
+                if (foundItem.partName && (foundItem.partName.toLowerCase().includes(areaLower) || areaLower.includes(foundItem.partName.toLowerCase()))) {
+                    matchedPart = foundItem.partNo;
+                    matchedAssembly = foundItem.assembly;
+                    break;
+                } else if (!matchedAssembly) {
+                    matchedAssembly = foundItem.assembly;
+                }
+            }
+        }
+        
+        if (matchedPart) {
+            setAssemblyFilter(matchedAssembly);
+            setPartNoFilter(matchedPart);
+            setAutoDetectMsg(`✅ Found! Selected: ${matchedAssembly} - Part ${matchedPart}`);
+        } else if (matchedAssembly) {
+            setAssemblyFilter(matchedAssembly);
+            setAutoDetectMsg(`✅ Found Assembly: ${matchedAssembly}. Please select Part No manually.`);
+        } else {
+            setAutoDetectMsg(`⚠️ Could not auto-match area. Please search manually.`);
+        }
+      } catch (err) {
+        console.error(err);
+        setAutoDetectMsg('⚠️ Failed to get location data.');
+      } finally {
+        setIsAutoDetecting(false);
+      }
+    }, (err) => {
+      setIsAutoDetecting(false);
+      setAutoDetectMsg('⚠️ Location access denied or timeout.');
+    }, { enableHighAccuracy: true });
+  };
 
   const filteredData = data.filter(item => {
     if (isBlo) {
@@ -521,7 +598,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
         <div className="relative">
           <input
             type="text"
-            placeholder={getPlaceholder()}
+            placeholder={t("search_loc")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -540,11 +617,31 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
           </button>
         </div>
         
+        
+        {isBlo && (
+          <div className="mb-2 border-b border-gray-200 pb-3">
+            <button
+              onClick={handleAutoDetectBLO}
+              disabled={isAutoDetecting}
+              className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors text-sm shadow-sm gap-2"
+            >
+              {isAutoDetecting ? (
+                <><svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> <span>{autoDetectMsg || 'Auto-Detecting...'}</span></>
+              ) : (
+                <>📍 Auto-Detect My Electoral Area</>
+              )}
+            </button>
+            {!isAutoDetecting && autoDetectMsg && (
+                <p className={`text-xs mt-1.5 text-center font-medium ${autoDetectMsg.includes('⚠️') ? 'text-red-600' : 'text-emerald-700'}`}>{autoDetectMsg}</p>
+            )}
+          </div>
+        )}
+
         {isBlo && (
           <div className="mb-1">
             <input
               type="text"
-              placeholder="🪪 Find by Part No."
+              placeholder={t("search_part")}
               value={epicPartSearch}
               onChange={(e) => setEpicPartSearch(e.target.value)}
               className="w-full px-3 py-2 border-2 border-indigo-200 rounded-lg text-sm bg-white focus:outline-none focus:border-indigo-500 font-medium"
@@ -559,7 +656,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
               onChange={(e) => setAssemblyFilter(e.target.value)}
               className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
-              <option value="">All Assemblies</option>
+              <option value="">{t("filter_all_assemblies")}</option>
               {uniqueAssemblies.map(a => <option key={a} value={a}>{a}</option>)}
             </select>
 
@@ -568,7 +665,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
               onChange={(e) => setPartNoFilter(e.target.value)}
               className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
-              <option value="">All Part Nos</option>
+              <option value="">{t("filter_all_parts")}</option>
               {uniquePartNos.map(p => <option key={p.partNo} value={p.partNo}>{p.partNo}{p.partName ? ` - ${p.partName}` : ''}</option>)}
             </select>
           </div>
@@ -581,7 +678,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
             rel="noopener noreferrer"
             className="w-full mt-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors text-sm shadow-sm"
           >
-            🔍 Don't know your Part No.? Find it using your EPIC No.
+            🔍 {t('btn_eci_search')}
           </a>
         )}
 
@@ -711,7 +808,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
                       boxShadow: '0 2px 8px rgba(37,211,102,0.3)',
                     }}
                   >
-                    💬 Share via WhatsApp
+                    💬 {t('btn_share')}
                   </button>
                 )}
 

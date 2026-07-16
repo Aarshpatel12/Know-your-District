@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, User, Bot, Loader2, Volume2, VolumeX } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ChatWidget() {
+  const { t, currentLang } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { sender: 'bot', text: 'Hello! I am your AI Citizen Assistant. How can I help you with government services in Ludhiana?' }
+    { sender: 'bot', text: t('chat_welcome') }
   ]);
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -73,7 +75,7 @@ export default function ChatWidget() {
               taskType: "tts",
               config: {
                 language: {
-                  sourceLanguage: "pa" // Punjabi
+                  sourceLanguage: currentLang
                 }
               }
             }
@@ -141,7 +143,7 @@ export default function ChatWidget() {
       }
     } catch (error) {
       console.error("Chat API Error:", error);
-      const fallbackText = "Sorry, I couldn't connect to the server. Please try again later.";
+      const fallbackText = t('chat_error');
       setMessages((prev) => [...prev, { sender: 'bot', text: fallbackText }]);
       if (voiceMode) playBhashiniTTS(fallbackText);
     } finally {
@@ -165,13 +167,13 @@ export default function ChatWidget() {
           <div className="bg-green-700 text-white p-4 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-2">
               <Bot size={20} />
-              <h3 className="font-semibold text-lg">AI Citizen Assistant</h3>
+              <h3 className="font-semibold text-lg">{t('chat_title')}</h3>
             </div>
             <div className="flex items-center gap-1">
               <button 
                 onClick={toggleVoiceMode}
                 className={`transition-colors p-1.5 rounded-full ${voiceMode ? 'text-white hover:bg-green-600' : 'text-green-300 hover:text-white'}`}
-                title={voiceMode ? "Mute Voice" : "Enable Voice"}
+                title={voiceMode ? t('chat_mute') : t('chat_enable')}
               >
                 {voiceMode ? <Volume2 size={18} /> : <VolumeX size={18} />}
               </button>
@@ -209,7 +211,7 @@ export default function ChatWidget() {
                           <div className="w-1 bg-green-500 rounded-full animate-pulse h-full" style={{ animationDelay: '0ms' }} />
                           <div className="w-1 bg-green-500 rounded-full animate-pulse h-2/3" style={{ animationDelay: '150ms' }} />
                           <div className="w-1 bg-green-500 rounded-full animate-pulse h-full" style={{ animationDelay: '300ms' }} />
-                          <span className="text-[10px] text-green-600 ml-1 leading-none">Speaking...</span>
+                          <span className="text-[10px] text-green-600 ml-1 leading-none">{t('chat_speaking')}</span>
                         </div>
                       )}
                     </div>
@@ -241,7 +243,7 @@ export default function ChatWidget() {
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="Ask a question..."
+              placeholder={t('chat_placeholder')}
               className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 border border-transparent focus:border-green-500 transition-all"
               disabled={isTyping}
             />
