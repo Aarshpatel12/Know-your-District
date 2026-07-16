@@ -1,6 +1,7 @@
 export const translations = {
   en: {
     app_title: "Know Your District",
+    app_title_blo: "Know Your BLO",
     app_subtitle: "District Administration Ludhiana",
     official_portal: "Official Government Portal",
     welcome_title: "Welcome to Know Your District",
@@ -53,6 +54,7 @@ export const translations = {
   },
   hi: {
     app_title: "अपने ज़िले को जानें",
+    app_title_blo: "अपने बी.एल.ओ (BLO) को जानें",
     app_subtitle: "जिला प्रशासन लुधियाना",
     official_portal: "आधिकारिक सरकारी पोर्टल",
     welcome_title: "अपने ज़िले को जानें में आपका स्वागत है",
@@ -105,6 +107,7 @@ export const translations = {
   },
   pa: {
     app_title: "ਆਪਣੇ ਜ਼ਿਲ੍ਹੇ ਨੂੰ ਜਾਣੋ",
+    app_title_blo: "ਆਪਣੇ ਬੀ.ਐਲ.ਓ (BLO) ਨੂੰ ਜਾਣੋ",
     app_subtitle: "ਜ਼ਿਲ੍ਹਾ ਪ੍ਰਸ਼ਾਸਨ ਲੁਧਿਆਣਾ",
     official_portal: "ਅਧਿਕਾਰਤ ਸਰਕਾਰੀ ਪੋਰਟਲ",
     welcome_title: "ਆਪਣੇ ਜ਼ਿਲ੍ਹੇ ਨੂੰ ਜਾਣੋ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ",

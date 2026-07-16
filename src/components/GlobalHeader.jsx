@@ -33,7 +33,7 @@ export default function GlobalHeader() {
         {/* Center Section: Titles */}
         <div className="text-center flex-1 min-w-0 flex flex-col justify-center">
           <h1 className="text-base sm:text-2xl font-bold leading-tight truncate tracking-wide">
-            {t('app_title')}
+            {location.pathname.includes('/directory/blo') ? t('app_title_blo') : t('app_title')}
           </h1>
           <p className="text-[10px] sm:text-xs text-green-200 truncate uppercase tracking-wider sm:tracking-widest mt-0.5 font-medium">
             {t('app_subtitle')}
