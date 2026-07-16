@@ -270,9 +270,7 @@ function BloCard({ item }) {
           </span>
         </div>
       )}
-      {item.epicNumber && (
-        <p className="text-xs text-slate-500 font-mono mt-1 px-1 tracking-tight">EPIC: <span className="font-semibold text-slate-700">{item.epicNumber}</span></p>
-      )}
+
       <div className="mt-3 pt-3 border-t border-gray-100 flex gap-2">
         <PhoneLink number={item.mobile} />
       </div>
@@ -285,9 +283,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
   const [epicPartSearch, setEpicPartSearch] = useState('');
   const [assemblyFilter, setAssemblyFilter] = useState('');
   const [partNoFilter, setPartNoFilter] = useState('');
-  const [designationFilter, setDesignationFilter] = useState('');
-  const [departmentFilter, setDepartmentFilter] = useState('');
-  const [phoneFilter, setPhoneFilter] = useState('');
+
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -426,8 +422,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
       .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
       .map(([partNo, partName]) => ({ partNo, partName }));
   })() : [];
-  const uniqueDesignations = isBlo ? [...new Set(data.map(item => item.designation).filter(Boolean))].sort() : [];
-  const uniqueDepartments = isBlo ? [...new Set(data.map(item => item.department).filter(Boolean))].sort() : [];
+
 
   const filteredData = data.filter(item => {
     if (isBlo) {
@@ -439,10 +434,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
       } else {
         if (assemblyFilter && item.assembly !== assemblyFilter) return false;
         if (partNoFilter && item.partNo !== partNoFilter) return false;
-        if (designationFilter && item.designation !== designationFilter) return false;
-        if (departmentFilter && item.department !== departmentFilter) return false;
-        if (phoneFilter === 'yes' && !item.mobile) return false;
-        if (phoneFilter === 'no' && item.mobile) return false;
+
       }
     }
     
@@ -472,7 +464,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
     if (item.assembly) text += `Assembly: ${item.assembly}\n`;
     if (item.partNo) text += `Part No: ${item.partNo}\n`;
     if (item.designation) text += `Designation: ${item.designation}\n`;
-    if (item.epicNumber) text += `EPIC Number: ${item.epicNumber}\n`;
+
     
     if (item.lat && item.lng) {
       text += `\nMap Location: https://maps.google.com/?q=${item.lat},${item.lng}`;
@@ -552,7 +544,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
           <div className="mb-1">
             <input
               type="text"
-              placeholder="🪪 Find by Part No. or EPIC"
+              placeholder="🪪 Find by Part No."
               value={epicPartSearch}
               onChange={(e) => setEpicPartSearch(e.target.value)}
               className="w-full px-3 py-2 border-2 border-indigo-200 rounded-lg text-sm bg-white focus:outline-none focus:border-indigo-500 font-medium"
@@ -561,7 +553,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
         )}
 
         {isBlo && (
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <select
               value={assemblyFilter}
               onChange={(e) => setAssemblyFilter(e.target.value)}
@@ -579,34 +571,6 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
               <option value="">All Part Nos</option>
               {uniquePartNos.map(p => <option key={p.partNo} value={p.partNo}>{p.partNo}{p.partName ? ` - ${p.partName}` : ''}</option>)}
             </select>
-
-            <select
-              value={designationFilter}
-              onChange={(e) => setDesignationFilter(e.target.value)}
-              className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            >
-              <option value="">All Designations</option>
-              {uniqueDesignations.map(d => <option key={d} value={d}>{d}</option>)}
-            </select>
-
-            <select
-              value={departmentFilter}
-              onChange={(e) => setDepartmentFilter(e.target.value)}
-              className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            >
-              <option value="">All Departments</option>
-              {uniqueDepartments.map(d => <option key={d} value={d}>{d}</option>)}
-            </select>
-
-            <select
-              value={phoneFilter}
-              onChange={(e) => setPhoneFilter(e.target.value)}
-              className="w-full px-2 py-1.5 border border-gray-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            >
-              <option value="">Phone: Any</option>
-              <option value="yes">Has Phone</option>
-              <option value="no">No Phone</option>
-            </select>
           </div>
         )}
 
@@ -617,7 +581,7 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
             rel="noopener noreferrer"
             className="w-full mt-1 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors text-sm shadow-sm"
           >
-            🔍 Search Your Name in Voter List (ECI)
+            🔍 Don't know your Part No.? Find it using your EPIC No.
           </a>
         )}
 
