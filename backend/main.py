@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
 import logging
@@ -39,15 +38,9 @@ KNOWLEDGE_BASE = [
     "If you need to apply for a new Voter ID card, correct existing details, or link your Aadhaar card with your Voter ID, you should contact your assigned Booth Level Officer (BLO) for assistance."
 ]
 
-# Initialize FAISS index
-logger.info("Building FAISS index...")
-dimension = model.get_sentence_embedding_dimension()
-index = faiss.IndexFlatL2(dimension)
-
-# Embed the knowledge base and add to FAISS
+# Embed the knowledge base
 corpus_embeddings = model.encode(KNOWLEDGE_BASE)
-index.add(np.array(corpus_embeddings).astype('float32'))
-logger.info("FAISS index built successfully.")
+logger.info("Knowledge base embeddings generated successfully.")
 
 class ChatRequest(BaseModel):
     query: str
@@ -63,21 +56,27 @@ async def chat_endpoint(request: ChatRequest):
     
     try:
         # 1. Embed the user query
-        query_embedding = model.encode([request.query])
+        query_embedding = model.encode(request.query)
         
-        # 2. Search FAISS index for top 2 most relevant contexts
+        # 2. Compute cosine similarities using numpy
+        # query_embedding is 1D, corpus_embeddings is 2D
+        norms_corpus = np.linalg.norm(corpus_embeddings, axis=1)
+        norm_query = np.linalg.norm(query_embedding)
+        similarities = np.dot(corpus_embeddings, query_embedding) / (norms_corpus * norm_query)
+        
+        # 3. Retrieve the top 2 matching texts
         k = 2
-        distances, indices = index.search(np.array(query_embedding).astype('float32'), k)
+        top_k_indices = np.argsort(similarities)[-k:][::-1]
         
-        # 3. Retrieve the matching text
         matched_contexts = []
-        for idx in indices[0]:
-            if idx < len(KNOWLEDGE_BASE):
-                matched_contexts.append(KNOWLEDGE_BASE[idx])
+        best_score = similarities[top_k_indices[0]]
+        
+        for idx in top_k_indices:
+            matched_contexts.append(KNOWLEDGE_BASE[idx])
                 
         # 4. Format a deterministic conversational response based on context
-        if not matched_contexts or distances[0][0] > 1.5: 
-            # If distance is too high, it means no good match was found
+        # 0.4 is a reasonable threshold for cosine similarity (ranges -1 to 1, higher is better)
+        if not matched_contexts or best_score < 0.3: 
             response_text = "I'm sorry, I couldn't find specific information about that in my current knowledge base. Please contact the district administration helpdesk for further assistance."
         else:
             context_str = " ".join(matched_contexts)
