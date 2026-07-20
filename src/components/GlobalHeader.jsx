@@ -16,7 +16,13 @@ export default function GlobalHeader() {
         <div className="flex items-center gap-2 sm:gap-3 w-1/4 sm:w-1/3">
           {location.pathname !== '/' && (
             <button
-              onClick={() => navigate('/')}
+              onClick={() => {
+                if (location.pathname === '/update-rush') {
+                  navigate('/directory/blo');
+                } else {
+                  navigate('/');
+                }
+              }}
               className="hover:bg-green-600 p-1.5 sm:p-2 rounded-full transition shrink-0 -ml-1 sm:ml-0"
               aria-label="Go back"
             >

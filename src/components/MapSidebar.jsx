@@ -322,14 +322,16 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
 
   useEffect(() => {
     if (category === 'blo') {
-      fetch('http://localhost:8000/api/rush')
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      fetch(`${API_BASE}/api/rush`)
         .then(res => res.json())
         .then(data => setRushStatuses(data))
         .catch(err => console.error("Failed to fetch rush statuses:", err));
       
       // Also set an interval to refresh rush statuses every 30 seconds
       const intervalId = setInterval(() => {
-        fetch('http://localhost:8000/api/rush')
+        const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        fetch(`${API_BASE}/api/rush`)
           .then(res => res.json())
           .then(data => setRushStatuses(data))
           .catch(err => console.error("Failed to fetch rush statuses:", err));
