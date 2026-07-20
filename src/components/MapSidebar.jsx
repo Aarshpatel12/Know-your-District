@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Navigation, Phone, MapPin, Users, Building2, Baby, Stethoscope, Mic, Camera, UserCheck } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Tesseract from 'tesseract.js';
@@ -253,30 +254,50 @@ function AwcCard({ item }) {
   );
 }
 
-function BloCard({ item }) {
+function BloCard({ item, rushLevel }) {
   const { t } = useLanguage();
   return (
     <div className="mt-2 flex flex-col h-full justify-between gap-2">
       <div className="grid grid-cols-2 gap-2 mb-1">
         {item.assembly && (
-          <div className="bg-indigo-50 rounded-lg p-2 border border-indigo-100 flex flex-col">
-             <span className="text-[10px] text-indigo-400 uppercase font-bold tracking-wider">Assembly</span>
-             <span className="text-xs text-indigo-900 font-bold truncate" title={item.assembly}>{item.assembly}</span>
+          <div className="bg-gradient-to-br from-indigo-50 to-indigo-100/50 rounded-lg p-2 border border-indigo-100 shadow-sm flex flex-col transition-colors hover:from-indigo-100 hover:to-indigo-50">
+             <span className="text-[9px] text-indigo-500 uppercase font-black tracking-widest">Assembly</span>
+             <span className="text-xs text-indigo-950 font-bold truncate mt-0.5" title={item.assembly}>{item.assembly}</span>
           </div>
         )}
         {item.partNo && (
-          <div className="bg-emerald-50 rounded-lg p-2 border border-emerald-100 flex flex-col">
-             <span className="text-[10px] text-emerald-500 uppercase font-bold tracking-wider">Part No</span>
-             <span className="text-xs text-emerald-900 font-bold truncate" title={item.partNo}>{item.partNo}</span>
+          <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-lg p-2 border border-emerald-100 shadow-sm flex flex-col transition-colors hover:from-emerald-100 hover:to-emerald-50">
+             <span className="text-[9px] text-emerald-500 uppercase font-black tracking-widest">Part No</span>
+             <span className="text-xs text-emerald-950 font-bold truncate mt-0.5" title={item.partNo}>{item.partNo}</span>
           </div>
         )}
       </div>
       
       {item.designation && (
-        <div className="mt-1">
+        <div className="mt-1 flex flex-wrap gap-2 items-center">
           <span className="text-[11px] text-gray-700 bg-gray-50 px-2 py-1 rounded-md border font-medium border-gray-200 shadow-sm inline-block">
             💼 {item.designation} {item.department ? `(${item.department})` : ''}
           </span>
+          {rushLevel && (
+            <span className={`text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider border shadow-sm flex items-center gap-1.5 backdrop-blur-sm ${
+              rushLevel.level === 'Low' ? 'bg-green-100/90 text-green-800 border-green-200' :
+              rushLevel.level === 'Moderate' ? 'bg-yellow-100/90 text-yellow-800 border-yellow-200' :
+              'bg-red-100/90 text-red-800 border-red-200'
+            }`}>
+              <span className="relative flex h-2 w-2">
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                  rushLevel.level === 'Low' ? 'bg-green-500' : rushLevel.level === 'Moderate' ? 'bg-yellow-500' : 'bg-red-500'
+                }`}></span>
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${
+                  rushLevel.level === 'Low' ? 'bg-green-500' : rushLevel.level === 'Moderate' ? 'bg-yellow-500' : 'bg-red-500'
+                }`}></span>
+              </span>
+              Queue: {rushLevel.level} 
+              {rushLevel.count !== null && rushLevel.count !== undefined && (
+                <span className="bg-white/60 px-1.5 py-0.5 rounded-full ml-0.5 shadow-sm">{rushLevel.count} voters</span>
+              )}
+            </span>
+          )}
         </div>
       )}
 
@@ -296,7 +317,26 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
 
   const [isAutoDetecting, setIsAutoDetecting] = useState(false);
   const [autoDetectMsg, setAutoDetectMsg] = useState('');
+  const [showGlobalAMF, setShowGlobalAMF] = useState(false);
+  const [rushStatuses, setRushStatuses] = useState({});
 
+  useEffect(() => {
+    if (category === 'blo') {
+      fetch('http://localhost:8000/api/rush')
+        .then(res => res.json())
+        .then(data => setRushStatuses(data))
+        .catch(err => console.error("Failed to fetch rush statuses:", err));
+      
+      // Also set an interval to refresh rush statuses every 30 seconds
+      const intervalId = setInterval(() => {
+        fetch('http://localhost:8000/api/rush')
+          .then(res => res.json())
+          .then(data => setRushStatuses(data))
+          .catch(err => console.error("Failed to fetch rush statuses:", err));
+      }, 30000);
+      return () => clearInterval(intervalId);
+    }
+  }, [category]);
 
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
@@ -571,10 +611,13 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
   };
 
   const renderCard = (item) => {
+    const epicNumber = item.epicNumber || item.epic || item.epicNo || item.partNo;
+    const currentRush = rushStatuses[epicNumber] || null;
+
     if (isAwc)     return <AwcCard     item={item} />;
     if (isKanungo) return <KanungoCard item={item} />;
     if (isHospital)return <HospitalCard item={item} />;
-    if (isBlo)     return <BloCard item={item} />;
+    if (isBlo)     return <BloCard item={item} rushLevel={currentRush} />;
     if (category === 'sewakendra' || category === 'sewakendras') return <SewaKendraCard item={item} />;
     return <PatwariCard item={item} />;
   };
@@ -720,6 +763,35 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
         )}
       </div>
 
+      {/* GLOBAL ACTIONS (for BLOs only) */}
+      {isBlo && (
+        <div className="px-4 pt-4 pb-1 bg-gray-50 shrink-0 grid grid-cols-3 gap-2">
+            <a
+              href="/AMF_Guidelines.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-100 hover:bg-blue-200 text-blue-800 font-bold p-2 rounded-lg text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1.5 transition-colors shadow-sm text-center leading-tight h-full"
+            >
+              <Building2 size={18} className="shrink-0" /> 
+              <span>AMF Guidelines</span>
+            </a>
+            <a
+              href="tel:1950"
+              className="bg-green-100 hover:bg-green-200 text-green-800 font-bold p-2 rounded-lg text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1.5 transition-colors shadow-sm text-center leading-tight h-full"
+            >
+              <Phone size={18} className="shrink-0" /> 
+              <span>1950 Helpline</span>
+            </a>
+            <Link
+              to="/update-rush"
+              className="bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-bold p-2 rounded-lg text-[10px] sm:text-xs flex flex-col items-center justify-center gap-1.5 transition-colors shadow-sm text-center leading-tight h-full"
+            >
+              <UserCheck size={18} className="shrink-0" /> 
+              <span>Update Queue</span>
+            </Link>
+        </div>
+      )}
+
       {/* List */}
       <div className={`flex-1 overflow-y-auto ${isBlo ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 bg-gray-50 items-start content-start' : 'divide-y divide-gray-100'}`}>
         {filteredData.length === 0 ? (
@@ -735,8 +807,8 @@ export default function MapSidebar({ data, activeItem, setActiveItem, category, 
                 key={item.id}
                 onClick={() => setActiveItem(item)}
                 className={isBlo 
-                  ? `bg-white rounded-xl shadow-sm border p-4 transition-all cursor-pointer hover:shadow-md ${isActive ? 'ring-2 ring-indigo-500 border-indigo-500' : 'border-gray-200 hover:border-indigo-300'}`
-                  : `px-4 py-3 cursor-pointer transition-all border-l-4 ${isActive ? `${accent.active} border-l-4` : 'border-transparent hover:bg-gray-50'}`
+                  ? `bg-white rounded-xl shadow-sm border p-4 transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-1 ${isActive ? 'ring-2 ring-indigo-500 border-indigo-500 shadow-md' : 'border-gray-200 hover:border-indigo-300'}`
+                  : `px-4 py-3 cursor-pointer transition-all duration-200 border-l-4 ${isActive ? `${accent.active} border-l-4 shadow-sm` : 'border-transparent hover:bg-gray-50'}`
                 }
               >
                 <div className="flex justify-between items-start gap-2">

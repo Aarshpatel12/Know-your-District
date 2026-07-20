@@ -250,8 +250,8 @@ export default function DirectoryPage() {
         {/* SIDEBAR */}
         <div
           className={`
-            absolute inset-0 z-10
-            md:relative md:inset-auto md:z-auto
+            absolute inset-0 z-10 flex flex-col min-h-0
+            md:relative md:inset-auto md:z-auto md:flex-1
             transition-transform duration-300
             ${category === 'blo' ? 'w-full md:w-full max-w-6xl mx-auto shadow-md' : 'md:w-96 md:shrink-0'}
             ${mobileTab === 'list' || category === 'blo'

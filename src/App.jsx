@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import DirectoryPage from './pages/DirectoryPage';
+import BloUpdateRush from './pages/BloUpdateRush';
 import GlobalHeader from './components/GlobalHeader';
 import ChatWidget from './components/ChatWidget';
 
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/directory/:category" element={<DirectoryPage />} />
+          <Route path="/update-rush" element={<BloUpdateRush />} />
         </Routes>
       </div>
       <ChatWidget />

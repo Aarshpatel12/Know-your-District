@@ -95,3 +95,30 @@ async def chat_endpoint(request: ChatRequest):
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "model_loaded": True}
+
+from typing import Optional
+
+# In-memory store for rush status (keyed by epicNumber)
+rush_status_db = {}
+
+class RushUpdateRequest(BaseModel):
+    epicNumber: str
+    rushLevel: str
+    queueCount: Optional[int] = None
+
+@app.post("/api/rush")
+async def update_rush_status(request: RushUpdateRequest):
+    if not request.epicNumber:
+        raise HTTPException(status_code=400, detail="epicNumber is required")
+    if request.rushLevel not in ["Low", "Moderate", "High"]:
+        raise HTTPException(status_code=400, detail="Invalid rushLevel. Must be Low, Moderate, or High.")
+    
+    rush_status_db[request.epicNumber] = {
+        "level": request.rushLevel,
+        "count": request.queueCount
+    }
+    return {"status": "success", "epicNumber": request.epicNumber, "data": rush_status_db[request.epicNumber]}
+
+@app.get("/api/rush")
+async def get_rush_status():
+    return rush_status_db
