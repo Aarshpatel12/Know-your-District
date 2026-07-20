@@ -2,7 +2,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import numpy as np
-from sentence_transformers import SentenceTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -19,9 +20,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize the embedding model (Free, Local HuggingFace model)
-logger.info("Loading sentence transformer model...")
-model = SentenceTransformer('all-MiniLM-L6-v2')
+# Initialize the embedding model (Lightweight TF-IDF instead of PyTorch)
+logger.info("Initializing TF-IDF vectorizer...")
+vectorizer = TfidfVectorizer(stop_words='english')
 
 # Mock Knowledge Base for Ludhiana Civic Services
 KNOWLEDGE_BASE = [
@@ -39,8 +40,8 @@ KNOWLEDGE_BASE = [
 ]
 
 # Embed the knowledge base
-corpus_embeddings = model.encode(KNOWLEDGE_BASE)
-logger.info("Knowledge base embeddings generated successfully.")
+corpus_embeddings = vectorizer.fit_transform(KNOWLEDGE_BASE)
+logger.info("Knowledge base TF-IDF matrix generated successfully.")
 
 class ChatRequest(BaseModel):
     query: str
@@ -56,13 +57,10 @@ async def chat_endpoint(request: ChatRequest):
     
     try:
         # 1. Embed the user query
-        query_embedding = model.encode(request.query)
+        query_embedding = vectorizer.transform([request.query])
         
-        # 2. Compute cosine similarities using numpy
-        # query_embedding is 1D, corpus_embeddings is 2D
-        norms_corpus = np.linalg.norm(corpus_embeddings, axis=1)
-        norm_query = np.linalg.norm(query_embedding)
-        similarities = np.dot(corpus_embeddings, query_embedding) / (norms_corpus * norm_query)
+        # 2. Compute cosine similarities using sklearn
+        similarities = cosine_similarity(query_embedding, corpus_embeddings).flatten()
         
         # 3. Retrieve the top 2 matching texts
         k = 2
@@ -72,11 +70,12 @@ async def chat_endpoint(request: ChatRequest):
         best_score = similarities[top_k_indices[0]]
         
         for idx in top_k_indices:
-            matched_contexts.append(KNOWLEDGE_BASE[idx])
+            if similarities[idx] > 0: # Only append if there is some overlap
+                matched_contexts.append(KNOWLEDGE_BASE[idx])
                 
         # 4. Format a deterministic conversational response based on context
-        # 0.4 is a reasonable threshold for cosine similarity (ranges -1 to 1, higher is better)
-        if not matched_contexts or best_score < 0.3: 
+        # 0.1 is a reasonable threshold for TF-IDF cosine similarity on short text
+        if not matched_contexts or best_score < 0.1: 
             response_text = "I'm sorry, I couldn't find specific information about that in my current knowledge base. Please contact the district administration helpdesk for further assistance."
         else:
             context_str = " ".join(matched_contexts)
